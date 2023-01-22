@@ -1,0 +1,29 @@
+.section-appearance  {
+    animation: section-appearance .75s forwards ease-in-out;
+}
+
+.section-disappearance {
+    animation: section-disappearance .75s forwards ease-in-out;
+}
+
+@keyframes section-appearance {
+    from {
+        left: -25%;
+        opacity: 0;
+    }
+    to {
+        left: 0;
+        opacity: 1;
+    }
+}
+
+@keyframes section-disappearance {
+    from {
+        left: 0;
+        opacity: 1;
+    }
+    to {
+        left: 25%;
+        opacity: 0;
+    }
+}

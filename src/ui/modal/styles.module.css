@@ -1,0 +1,101 @@
+.backdrop {
+    left: 0;
+    top: 0;
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.75);
+    z-index: 1144;
+}
+
+.backdrop.show {
+    animation: backdrop-appearance .25s forwards ease-in-out;
+}
+
+.backdrop.hide {
+    animation: backdrop-disappearance .25s forwards ease-in-out;
+}
+
+.backdrop .modal-wrapper {
+    position: relative;
+    min-width: 30%;
+    max-width: 40%;
+    height: 100%;
+    margin: 0 auto;
+}
+
+.modal {
+    position: absolute;
+    width: 100%;
+    left: 0;
+    transform: translateY(-50%);
+    background: var(--gray);
+    box-sizing: border-box;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+}
+
+.modal.show {
+    animation: modal-appearance .25s forwards ease-in-out;
+}
+
+.modal.hide {
+    animation: modal-disappearance .25s forwards ease-in-out;
+}
+
+.header,
+.body,
+.footer {
+    padding: 16px;
+}
+
+.body {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.footer {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 16px;
+}
+
+@keyframes backdrop-appearance {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes backdrop-disappearance {
+    from {
+        opacity: 1;
+    }
+    to {
+        opacity: 0;
+        visibility: hidden;
+    }
+}
+
+@keyframes modal-appearance {
+    from {
+        top: 60%;
+    }
+    to {
+        top: 50%;
+    }
+}
+
+@keyframes modal-disappearance {
+    from {
+        top: 50%;
+    }
+    to {
+        top: 60%;
+    }
+}

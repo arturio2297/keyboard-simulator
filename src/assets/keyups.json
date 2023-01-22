@@ -1,0 +1,456 @@
+[
+  {
+    "alias": "Pause",
+    "code": "Escape",
+    "symbol": "Escape",
+    "type": "manager",
+    "line": 1
+  },
+  {
+    "code": "F1",
+    "symbol": "F1",
+    "type": "manager",
+    "line": 1
+  },
+  {
+    "code": "F2",
+    "symbol": "F2",
+    "type": "manager",
+    "line": 1
+  },
+  {
+    "code": "F3",
+    "symbol": "F3",
+    "type": "manager",
+    "line": 1
+  },
+  {
+    "code": "F4",
+    "symbol": "F4",
+    "type": "manager",
+    "line": 1
+  },
+  {
+    "code": "F5",
+    "symbol": "F5",
+    "type": "manager",
+    "line": 1
+  },
+  {
+    "code": "F6",
+    "symbol": "F6",
+    "type": "manager",
+    "line": 1
+  },
+  {
+    "code": "F7",
+    "symbol": "F7",
+    "type": "manager",
+    "line": 1
+  },
+  {
+    "code": "F8",
+    "symbol": "F8",
+    "type": "manager",
+    "line": 1
+  },
+  {
+    "code": "F9",
+    "symbol": "F9",
+    "type": "manager",
+    "line": 1
+  },
+  {
+    "code": "F10",
+    "symbol": "F10",
+    "type": "manager",
+    "line": 1
+  },
+  {
+    "code": "F11",
+    "symbol": "F11",
+    "type": "manager",
+    "line": 1
+  },
+  {
+    "code": "F12",
+    "symbol": "F12",
+    "type": "manager",
+    "line": 1
+  },
+  {
+    "code": "Backquote",
+    "symbol": "~",
+    "additionalSymbol": "`",
+    "type": "letter",
+    "line": 2
+  },
+  {
+    "code": "Digit1",
+    "symbol": "1",
+    "additionalSymbol": "!",
+    "type": "letter",
+    "line": 2
+  },
+  {
+    "code": "Digit2",
+    "symbol": "2",
+    "additionalSymbol": "@",
+    "type": "letter",
+    "line": 2
+  },
+  {
+    "code": "Digit3",
+    "symbol": "3",
+    "additionalSymbol": "#",
+    "type": "letter",
+    "line": 2
+  },
+  {
+    "code": "Digit4",
+    "symbol": "4",
+    "additionalSymbol": "$",
+    "type": "letter",
+    "line": 2
+  },
+  {
+    "code": "Digit5",
+    "symbol": "5",
+    "additionalSymbol": "%",
+    "type": "letter",
+    "line": 2
+  },
+  {
+    "code": "Digit6",
+    "symbol": "6",
+    "additionalSymbol": "^",
+    "type": "letter",
+    "line": 2
+  },
+  {
+    "code": "Digit7",
+    "symbol": "7",
+    "additionalSymbol": "&",
+    "type": "letter",
+    "line": 2
+  },
+  {
+    "code": "Digit8",
+    "symbol": "8",
+    "additionalSymbol": "*",
+    "type": "letter",
+    "line": 2
+  },
+  {
+    "code": "Digit9",
+    "symbol": "9",
+    "additionalSymbol": "(",
+    "type": "letter",
+    "line": 2
+  },
+  {
+    "code": "Digit0",
+    "symbol": "0",
+    "additionalSymbol": ")",
+    "type": "letter",
+    "line": 2
+  },
+  {
+    "code": "Minus",
+    "symbol": "-",
+    "additionalSymbol": "_",
+    "type": "letter",
+    "line": 2
+  },
+  {
+    "code": "Equal",
+    "symbol": "=",
+    "additionalSymbol": "+",
+    "type": "letter",
+    "line": 2
+  },
+  {
+    "code": "Backspace",
+    "symbol": "Backspace",
+    "type": "manager",
+    "line": 2
+  },
+  {
+    "code": "Tab",
+    "symbol": "Tab",
+    "type": "manager",
+    "line": 3
+  },
+  {
+    "code": "KeyQ",
+    "symbol": "Q",
+    "type": "letter",
+    "line": 3
+  },
+  {
+    "code": "KeyW",
+    "symbol": "W",
+    "type": "letter",
+    "line": 3
+  },
+  {
+    "code": "KeyE",
+    "symbol": "E",
+    "type": "letter",
+    "line": 3
+  },
+  {
+    "code": "KeyR",
+    "symbol": "R",
+    "type": "letter",
+    "line": 3
+  },
+  {
+    "code": "KeyT",
+    "symbol": "T",
+    "type": "letter",
+    "line": 3
+  },
+  {
+    "code": "KeyY",
+    "symbol": "Y",
+    "type": "letter",
+    "line": 3
+  },
+  {
+    "code": "KeyU",
+    "symbol": "U",
+    "type": "letter",
+    "line": 3
+  },
+  {
+    "code": "KeyI",
+    "symbol": "I",
+    "type": "letter",
+    "line": 3
+  },
+  {
+    "code": "KeyO",
+    "symbol": "O",
+    "type": "letter",
+    "line": 3
+  },
+  {
+    "code": "KeyP",
+    "symbol": "P",
+    "type": "letter",
+    "line": 3
+  },
+  {
+    "code": "BracketLeft",
+    "symbol": "[",
+    "additionalSymbol": "{",
+    "type": "letter",
+    "line": 3
+  },
+  {
+    "code": "BracketRight",
+    "symbol": "]",
+    "additionalSymbol": "}",
+    "type": "letter",
+    "line": 3
+  },
+  {
+    "code": "Backslash",
+    "symbol": "\\",
+    "additionalSymbol": "|",
+    "type": "letter",
+    "line": 3
+  },
+  {
+    "code": "CapsLock",
+    "symbol": "Caps",
+    "type": "manager",
+    "line": 4
+  },
+  {
+    "code": "KeyA",
+    "symbol": "A",
+    "type": "letter",
+    "line": 4
+  },
+  {
+    "code": "KeyS",
+    "symbol": "S",
+    "type": "letter",
+    "line": 4
+  },
+  {
+    "code": "KeyD",
+    "symbol": "D",
+    "type": "letter",
+    "line": 4
+  },
+  {
+    "code": "KeyF",
+    "symbol": "F",
+    "type": "letter",
+    "line": 4
+  },
+  {
+    "code": "KeyG",
+    "symbol": "G",
+    "type": "letter",
+    "line": 4
+  },
+  {
+    "code": "KeyH",
+    "symbol": "H",
+    "type": "letter",
+    "line": 4
+  },
+  {
+    "code": "KeyJ",
+    "symbol": "J",
+    "type": "letter",
+    "line": 4
+  },
+  {
+    "code": "KeyK",
+    "symbol": "K",
+    "type": "letter",
+    "line": 4
+  },
+  {
+    "code": "KeyL",
+    "symbol": "L",
+    "type": "letter",
+    "line": 4
+  },
+  {
+    "code": "Semicolon",
+    "symbol": ";",
+    "additionalSymbol": ":",
+    "type": "letter",
+    "line": 4
+  },
+  {
+    "code": "Quote",
+    "symbol": "'",
+    "additionalSymbol": "\"",
+    "type": "letter",
+    "line": 4
+  },
+  {
+    "code": "Enter",
+    "symbol": "Enter",
+    "type": "manager",
+    "line": 4
+  },
+  {
+    "code": "ShiftLeft",
+    "symbol": "Shift",
+    "type": "manager",
+    "line": 5
+  },
+  {
+    "code": "KeyZ",
+    "symbol": "Z",
+    "type": "letter",
+    "line": 5
+  },
+  {
+    "code": "KeyX",
+    "symbol": "X",
+    "type": "letter",
+    "line": 5
+  },
+  {
+    "code": "KeyC",
+    "symbol": "C",
+    "type": "letter",
+    "line": 5
+  },
+  {
+    "code": "KeyV",
+    "symbol": "V",
+    "type": "letter",
+    "line": 5
+  },
+  {
+    "code": "KeyB",
+    "symbol": "B",
+    "type": "letter",
+    "line": 5
+  },
+  {
+    "code": "KeyN",
+    "symbol": "N",
+    "type": "letter",
+    "line": 5
+  },
+  {
+    "code": "KeyM",
+    "symbol": "M",
+    "type": "letter",
+    "line": 5
+  },
+  {
+    "code": "Comma",
+    "symbol": ",",
+    "additionalSymbol": "<",
+    "type": "letter",
+    "line": 5
+  },
+  {
+    "code": "Period",
+    "symbol": ".",
+    "additionalSymbol": ">",
+    "type": "letter",
+    "line": 5
+  },
+  {
+    "code": "Slash",
+    "symbol": "/",
+    "additionalSymbol": "?",
+    "type": "letter",
+    "line": 5
+  },
+  {
+    "code": "ShiftRight",
+    "symbol": "Shift",
+    "type": "manager",
+    "line": 5
+  },
+  {
+    "code": "ControlLeft",
+    "symbol": "Ctrl",
+    "type": "manager",
+    "line": 6
+  },
+  {
+    "code": "MetaLeft",
+    "symbol": "Win",
+    "type": "manager",
+    "line": 6
+  },
+  {
+    "code": "AltLeft",
+    "symbol": "Alt",
+    "type": "manager",
+    "line": 6
+  },
+  {
+    "code": "Space",
+    "symbol": " ",
+    "type": "manager",
+    "line": 6
+  },
+  {
+    "code": "AltRight",
+    "symbol": "Alt",
+    "type": "manager",
+    "line": 6
+  },
+  {
+    "code": "ControlRight",
+    "symbol": "Control",
+    "type": "manager",
+    "line": 6
+  }
+]
