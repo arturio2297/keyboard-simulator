@@ -1,4 +1,4 @@
-import allKeyUps from "../../src/assets/keyups.json";
+import allKeyUps from "../assets/keyups.json";
 
 export interface KeyUp {
   code: string;
