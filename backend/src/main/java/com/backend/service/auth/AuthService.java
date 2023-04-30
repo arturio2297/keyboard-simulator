@@ -64,7 +64,8 @@ public class AuthService {
             throw new ApplicationException(ErrorCode.CommonForbidden);
         }
 
-        final String email = authentication.getName();
+        final User user = (User) authentication.getPrincipal();
+        final String email = user.getEmail();
         final UserRole role = getRole(authentication);
         log.debug("Refresh token for user. Email: '{}', role: '{}'", email, role);
 

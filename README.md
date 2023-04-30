@@ -1,28 +1,56 @@
-## Local Start
+# Description
+Applications for typing exercises on the keyboard. Frontend is made on Typescript+React. Mobx is used as a state manager.
+Backend is made on Java+Spring-Boot. Public api [baconipsum](https://baconipsum.com/) is used to generate text.
 
-### Run backend
+# Start
+## Local Start Backend
+Backend requires Java v.17, Maven and postgreSQL v.15.2 to run
+### Run
+From backend directory
 ```shell
 mvn spring-boot:run
 ```
 
-### Install frontend deps
+## Local Start Frontend
+Node.js 18.6.0 is required to run frontend
+### Install Deps
 ```shell
 yarn --cwd ./frontend install --frozen-lockfile
 ```
-
-### Run frontend
+### Run
 ```shell
 yarn --cwd ./frontend start
 ```
 
-## Docker Start
+## Default Urls
+- [backend](http://localhost:8080)
+- [swagger-ui](http://localhost:8080/swagger-ui/index.html)
+- [frontend](http://localhost:3000)
 
+## Docker Start
+To run in docker, you only need docker itself (building is done inside docker)
+### Create .env.local file
+```shell
+cp .env.local.example .env.local
+```
+### Create Network
+```shell
+docker network create keyboard-sim-network
+```
+### Build
+```shell
+docker-compose --env-file=".env.local" -f docker-compose.local.yml build --no-cache
+```
 ### Up
 ```shell
-docker-compose -f docker-compose.dev.local --env-file "env/.env.local" up -d
+docker-compose --env-file=".env.local" -f docker-compose.local.yml up -d
 ```
-
 ### Down
 ```shell
-docker-compose -f docker-compose.dev.local --env-file "env/.env.local" down
+docker-compose --env-file=".env.local" -f docker-compose.local.yml down
 ```
+
+# Future features
+- User`s registration
+- Storing user`s statistics in the database
+- User`s achievement system

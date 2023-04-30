@@ -1,0 +1,65 @@
+version: "3.9"
+
+services:
+  keyboard-sim-db:
+    image: postgres:15.2
+    container_name: keyboard-sim-db
+    environment:
+      POSTGRES_DB: ${DB_NAME}
+      POSTGRES_USER: ${DB_USERNAME}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      PGDATA: var/lib/postgresql/data
+    volumes:
+      - ${DB_VOLUME}:/var/lib/postgresql/data
+    ports:
+      - ${DB_PORT}:${DB_PORT}
+    expose:
+      - ${DB_PORT}
+    networks:
+      - keyboard-sim-network
+    command: -p ${DB_PORT}
+    restart: always
+
+  keyboard-sim-backend:
+    container_name: keyboard-sim-backend
+    build:
+      context: ./backend
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://keyboard-sim-db:${DB_PORT}/${DB_NAME}
+      SPRING_DATASOURCE_USERNAME: ${DB_USERNAME}
+      SPRING_DATASOURCE_PASSWORD: ${DB_PASSWORD}
+      SERVER_PORT: ${BACKEND_PORT}
+    ports:
+      - ${BACKEND_PORT}:${BACKEND_PORT}
+    expose:
+      - ${BACKEND_PORT}
+    networks:
+      - keyboard-sim-network
+    links:
+      - keyboard-sim-db
+    depends_on:
+      - keyboard-sim-db
+    restart: on-failure
+
+  keyboard-sim-frontend:
+    container_name: keyboard-sim-frontend
+    build:
+      context: ./frontend
+    environment:
+      FRONTEND_API_URL_BASE: http://keyboard-sim-backend:${BACKEND_PORT}
+    ports:
+      - ${FRONTEND_PORT}:80
+    expose:
+      - ${FRONTEND_PORT}
+    networks:
+      - keyboard-sim-network
+    links:
+      - keyboard-sim-backend
+    depends_on:
+      - keyboard-sim-backend
+    restart: on-failure
+
+networks:
+  keyboard-sim-network:
+    name: keyboard-sim-network
+    external: true
