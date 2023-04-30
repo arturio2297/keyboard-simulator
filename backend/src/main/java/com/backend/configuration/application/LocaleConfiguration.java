@@ -2,7 +2,6 @@ package com.backend.configuration.application;
 
 import com.backend.core.message.common.Language;
 import jakarta.servlet.http.HttpServletRequest;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpHeaders;

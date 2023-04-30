@@ -34,7 +34,6 @@ public class LocaleService {
     }
 
     public Locale getLocale() {
-        log.debug(LocaleContextHolder.getLocale().getLanguage());
         return LocaleContextHolder.getLocale();
     }
 

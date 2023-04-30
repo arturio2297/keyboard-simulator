@@ -12,9 +12,9 @@ import {letterKeyUps} from "../contracts/keyboard.contracts";
 import {calcPercent, formatNumber} from "../utils/number.utils";
 import {equalsIgnoreCase, isCaseSensitive, isUppercase} from "../utils/string.utils";
 import {formatTime, TimeFormat} from "../utils/date.utils";
-import textApi from "../api/TextApi";
 import {SessionStorage} from "../storage/SessionStorage";
 import {getTotal} from "../utils/statistic.utils";
+import api from "../api";
 
 export class SimulatorStore {
 
@@ -55,12 +55,12 @@ export class SimulatorStore {
     }
 
     this._textLoading = true;
-    textApi.get({ paras: paragraphs, type: 'all-meat' })
-      .then(data => {
+    api.text.get(paragraphs)
+      .then(response => {
         runInAction(() => {
           const doubleSpace = '  ';
           const space = ' ';
-          this._text = data.map(paragraph => paragraph.replaceAll(doubleSpace, space));
+          this._text = response.data.content.map(paragraph => paragraph.replaceAll(doubleSpace, space));
           this._letterKey = this.letters[0].key;
           this._status = SimulationStatus.READY;
         });

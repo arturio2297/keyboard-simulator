@@ -31,6 +31,8 @@ public class SecurityConfiguration {
                 .httpBasic().disable()
                 .authorizeHttpRequests()
                 .requestMatchers("/api/v1/auth/**").permitAll()
+                .requestMatchers("/api/v1/test/**").permitAll()
+                .requestMatchers("/api/v1/text/**").permitAll()
                 .requestMatchers("/api/v1/register/**").permitAll()
                 .requestMatchers("/api/v1/password-recovery/**").permitAll()
                 .requestMatchers("/api/**").authenticated()
