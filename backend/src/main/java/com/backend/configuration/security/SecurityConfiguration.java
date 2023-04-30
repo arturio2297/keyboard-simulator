@@ -30,11 +30,15 @@ public class SecurityConfiguration {
                 .csrf().disable()
                 .httpBasic().disable()
                 .authorizeHttpRequests()
+
+                // public >>>
                 .requestMatchers("/api/v1/auth/**").permitAll()
                 .requestMatchers("/api/v1/test/**").permitAll()
                 .requestMatchers("/api/v1/text/**").permitAll()
                 .requestMatchers("/api/v1/register/**").permitAll()
                 .requestMatchers("/api/v1/password-recovery/**").permitAll()
+                // public <<<
+
                 .requestMatchers("/api/**").authenticated()
                 .anyRequest().permitAll()
                 .and()

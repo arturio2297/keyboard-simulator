@@ -15,6 +15,7 @@ public class ApplicationConfiguration {
 
     private DefaultUser admin;
     private DefaultUser user;
+    private CodeExpirationHours codeExpirationHours;
 
     public List<DefaultUser> getDefaultUsers() {
         return List.of(admin, user);
@@ -27,5 +28,12 @@ public class ApplicationConfiguration {
         private String lastname;
         private String password;
         private UserRole role;
+    }
+
+    @Getter@Setter
+    public static class CodeExpirationHours {
+        private int registration;
+        private int recoveryPassword;
+        private int changeEmail;
     }
 }

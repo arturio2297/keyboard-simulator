@@ -29,6 +29,7 @@ services:
       SPRING_DATASOURCE_USERNAME: ${DB_USERNAME}
       SPRING_DATASOURCE_PASSWORD: ${DB_PASSWORD}
       SERVER_PORT: ${BACKEND_PORT}
+      SPRING_MAIL_PORT: ${MAILHOG_SMTP_PORT}
     ports:
       - ${BACKEND_PORT}:${BACKEND_PORT}
     expose:
@@ -58,6 +59,19 @@ services:
     depends_on:
       - keyboard-sim-backend
     restart: on-failure
+
+  mailhog:
+    image: mailhog/mailhog
+    container_name: keyboard-sim-mailhog
+    ports:
+      - ${MAILHOG_SMTP_PORT}:1025
+      - ${MAILHOG_FRONTEND_PORT}:8025
+    expose:
+      - ${MAILHOG_SMTP_PORT}
+      - ${MAILHOG_FRONTEND_PORT}
+    networks:
+      - keyboard-sim-network
+    restart: always
 
 networks:
   keyboard-sim-network:

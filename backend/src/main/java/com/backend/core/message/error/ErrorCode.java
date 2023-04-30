@@ -12,7 +12,11 @@ public enum ErrorCode {
     CommonNotFound(1002, HttpStatus.NOT_FOUND),
     CommonNotValid(1003, HttpStatus.BAD_REQUEST),
 
-    AuthenticationBadCredentials(2000, HttpStatus.FORBIDDEN);
+    AuthenticationBadCredentials(2000, HttpStatus.FORBIDDEN),
+
+    RegistrationUserAlreadyExists(3000, HttpStatus.BAD_REQUEST),
+    RegistrationInvalidCode(3001, HttpStatus.BAD_REQUEST),
+    RegistrationCodeExpired(3002, HttpStatus.BAD_REQUEST);
 
     @JsonValue
     private final int value;
