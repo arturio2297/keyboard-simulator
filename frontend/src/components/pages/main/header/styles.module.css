@@ -1,0 +1,25 @@
+.header {
+    width: 100%;
+    height: var(--header-height);
+    background: var(--blue);
+    border-bottom: solid var(--gray) 1px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 16px;
+    box-sizing: border-box;
+}
+
+.logo-section {
+
+}
+
+.logo-section h1 {
+    font-size: 24px;
+}
+
+.actions-section {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}

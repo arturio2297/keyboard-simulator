@@ -1,0 +1,7 @@
+.footer {
+    width: 100%;
+    height: var(--footer-height);
+    background: var(--blue);
+    border-top: solid var(--gray) 1px;
+    box-sizing: border-box;
+}

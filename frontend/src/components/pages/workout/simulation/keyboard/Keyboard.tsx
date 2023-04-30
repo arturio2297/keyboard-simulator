@@ -10,15 +10,7 @@ const getLine = (line: number): KeyUpsLine => {
   return keyUps.filter(keyUp => keyUp.line === line);
 }
 
-const keyboardLines: KeyUpsLine[] =
-  [
-    getLine(1),
-    getLine(2),
-    getLine(3),
-    getLine(4),
-    getLine(5),
-    getLine(6)
-  ];
+const keyboardLines: KeyUpsLine[] = Array.from({length: 6}).map((_, i) => getLine(i + 1));
 
 function Keyboard(): JSX.Element {
 
@@ -48,11 +40,11 @@ function Keyboard(): JSX.Element {
                 {keyup.symbol}
               </span>
               {keyup.additionalSymbol &&
-              <span className={styles['additional-symbol']}>
+                  <span className={styles['additional-symbol']}>
                 {keyup.additionalSymbol}
               </span>}
               {keyup.alias &&
-              <span className={styles['alias']}>
+                  <span className={styles['alias']}>
                 {keyup.alias}
               </span>}
             </div>)}
