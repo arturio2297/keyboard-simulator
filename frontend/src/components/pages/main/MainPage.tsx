@@ -19,7 +19,7 @@ function MainPage():JSX.Element {
       <SimulationSection/>}
       {simulationStore.isStatus(SimulationStatus.RESULT) &&
       <ResultSection/>}
-      {loading.text &&
+      {loading.fetchText &&
       <Loader>
           Text generation...
       </Loader>}

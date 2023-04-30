@@ -5,7 +5,8 @@ import {createContext, ReactNode} from "react";
 const rootStore = new RootStore();
 const contextValue: ApplicationContextValue = {
   rootStore,
-  simulationStore: rootStore.simulatorStore
+  simulationStore: rootStore.simulatorStore,
+  registrationStore: rootStore.registrationStore
 }
 
 export const ApplicationContext = createContext<ApplicationContextValue>(contextValue);

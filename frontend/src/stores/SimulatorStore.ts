@@ -15,11 +15,15 @@ import {formatTime, TimeFormat} from "../utils/date.utils";
 import {SessionStorage} from "../storage/SessionStorage";
 import {getTotal} from "../utils/statistic.utils";
 import api from "../api";
+import {LoadingState} from "../contracts/common.contracts";
+
+type LoadingKeys = 'fetchText';
 
 export class SimulatorStore {
 
   private _sessionsStorage = new SessionStorage();
 
+  private _loading: LoadingState<LoadingKeys> = {};
   private _status = SimulationStatus.NONE;
   private _pressedCode = '';
   private _pressTimerId: NodeJS.Timeout | undefined;
@@ -29,7 +33,6 @@ export class SimulatorStore {
   private _pressCount = 0;
   private _timerId?: NodeJS.Timeout;
   private _time = 0;
-  private _textLoading = false;
   private _showHints = true;
   private _sessionResults: SessionResult[];
 
@@ -54,7 +57,7 @@ export class SimulatorStore {
       return;
     }
 
-    this._textLoading = true;
+    this._loading.fetchText = true;
     api.text.get(paragraphs)
       .then(response => {
         runInAction(() => {
@@ -67,7 +70,7 @@ export class SimulatorStore {
       })
       .catch(() => {})
       .finally(() => {
-        runInAction(() => this._textLoading = false);
+        runInAction(() => this._loading.fetchText = false);
       });
   }
 
@@ -346,9 +349,7 @@ export class SimulatorStore {
   }
 
   public get loading() {
-    return {
-      text: this._textLoading
-    }
+    return this._loading;
   }
 
 }
