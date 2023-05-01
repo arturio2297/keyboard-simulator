@@ -7,10 +7,7 @@ import com.backend.service.registration.RegistrationService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/v1/register")
@@ -21,8 +18,13 @@ public class RegistrationController {
     private final RegistrationService registrationService;
 
     @PostMapping("/send-code")
-    public void SendCode(@Valid @RequestBody SendRegistrationCodeRequest request) throws ApplicationException {
+    public void sendCode(@Valid @RequestBody SendRegistrationCodeRequest request) throws ApplicationException {
         registrationService.sendCode(request);
+    }
+
+    @GetMapping("/check-code")
+    public boolean checkCode(@RequestParam String codeValue, @RequestParam String email) {
+        return registrationService.checkCode(codeValue, email);
     }
 
     @PostMapping

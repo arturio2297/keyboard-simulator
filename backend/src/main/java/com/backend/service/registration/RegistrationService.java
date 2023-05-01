@@ -52,6 +52,16 @@ public class RegistrationService {
         codeRepository.save(code);
     }
 
+    public boolean checkCode(String Value, String email) {
+        final Code code = codeRepository.findByValueAndEmailAndType(
+                Value,
+                email,
+                CodeType.Registration
+        ).orElse(null);
+
+        return code != null && !code.isExpired();
+    }
+
     public void confirm(ConfirmRegistrationRequest request) throws ApplicationException {
         final Code code = codeRepository.findByValueAndEmailAndType(
                 request.getCode(),
