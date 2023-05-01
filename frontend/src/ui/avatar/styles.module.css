@@ -1,0 +1,47 @@
+.fallback svg,
+.avatar {
+    width: var(--size);
+    height: var(--size);
+    box-sizing: border-box;
+}
+
+.avatar {
+    border-radius: 50%;
+}
+
+.fallback.s,
+.avatar.s {
+    --size: 50px;
+}
+
+.fallback.m,
+.avatar.m {
+    --size: 75px;
+}
+
+.fallback.l,
+.avatar.l {
+    --size: 100px;
+}
+
+.fallback.xl,
+.avatar.xl {
+    --size: 150px;
+}
+
+.fallback.xxl,
+.avatar.xxl {
+    --size: 200px;
+}
+
+.avatar.light,
+.fallback.light {
+    color: var(--gray);
+    border: solid var(--gray) 1px;
+}
+
+.avatar.dark,
+.fallback.dark {
+    color: var(--black);
+    border: solid var(--black) 1px;
+}

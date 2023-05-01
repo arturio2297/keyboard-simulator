@@ -37,6 +37,7 @@ public class SecurityConfiguration {
                 .requestMatchers("/api/v1/text/**").permitAll()
                 .requestMatchers("/api/v1/register/**").permitAll()
                 .requestMatchers("/api/v1/password-recovery/**").permitAll()
+                .requestMatchers("/api/v1/user/avatar/{id}").permitAll()
                 // public <<<
 
                 .requestMatchers("/api/**").authenticated()

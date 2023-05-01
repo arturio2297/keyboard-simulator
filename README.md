@@ -27,6 +27,7 @@ yarn --cwd ./frontend start
 - [swagger-ui](http://localhost:8080/swagger-ui/index.html)
 - [frontend](http://localhost:3000)
 - [mailhog-ui](http://localhost:8026)
+- [minio-ui](http://localhost:9003)
 
 ## Docker Start
 To run in docker, you only need docker itself (building is done inside docker)
@@ -55,9 +56,14 @@ docker-compose --env-file=".env.local" -f docker-compose.local.yml down
 docker-compose --env-file=".env.local" -f docker-compose.local.yml up mailhog -d
 ```
 
+### Start Minio Only
+```shell
+docker-compose --env-file=".env.local" -f docker-compose.local.yml up minio -d
+```
+
 # Future features
 - [X] User`s registration
-- [ ] Edit user`s profile data
+- [X] Edit user`s profile data
 - [ ] User`s password recovery
 - [ ] Storing user`s statistics in the database and show to frontend
 - [ ] User`s achievement system

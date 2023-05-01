@@ -23,6 +23,11 @@
     width: 100%;
 }
 
+.input-container input:read-only {
+    background: var(--black);
+    color: var(--gray);
+}
+
 .container .error {
     color: var(--red);
     font-size: 14px;

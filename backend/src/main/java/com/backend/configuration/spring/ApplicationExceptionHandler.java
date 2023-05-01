@@ -19,6 +19,7 @@ public class ApplicationExceptionHandler {
 
     @ExceptionHandler(ApplicationException.class)
     public ResponseEntity<ErrorResponse> handle(ApplicationException e) {
+        log.debug("Handle error with code: {}", e.getCode().getValue());
         return ResponseEntity
                 .status(e.getCode().getStatus())
                 .body(getResponseBody(e.getCode()));

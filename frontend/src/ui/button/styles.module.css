@@ -4,6 +4,14 @@
     border-radius: 5px;
     font-weight: 600;
     cursor: pointer;
+    position: relative;
+    display: flex;
+    justify-content: center;
+}
+
+.button .inner {
+    display: flex;
+    align-items: center;
 }
 
 .button.light {
@@ -38,4 +46,24 @@
 
 .button:active {
     transform: translateX(1px) translateY(1px);
+}
+
+.button:disabled {
+    cursor: initial;
+    background: var(--blue);
+}
+
+.button:disabled:active {
+    transform: none;
+}
+
+.button.loading .inner {
+    visibility: hidden;
+}
+
+.button.loading .spinner {
+    position: absolute;
+    left: 50%;
+    top: 55%;
+    transform: translateX(-50%) translateY(-50%);
 }

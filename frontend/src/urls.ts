@@ -8,12 +8,15 @@ const workout = '/workout';
 
 const about = '/about';
 
+const profile = '/profile'
+
 const urls = {
   main,
   login,
   registration,
   workout,
-  about
+  about,
+  profile
 };
 
 export default urls;

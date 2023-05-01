@@ -30,6 +30,11 @@ services:
       SPRING_DATASOURCE_PASSWORD: ${DB_PASSWORD}
       SERVER_PORT: ${BACKEND_PORT}
       SPRING_MAIL_PORT: ${MAILHOG_SMTP_PORT}
+      STORAGE_URL: http://minio
+      STORAGE_PORT: ${MINIO_API_PORT}
+      STORAGE_ACCESS_KEY: ${MINIO_USER}
+      STORAGE_SECRET_KEY: ${MINIO_PASSWORD}
+      STORAGE_REGION: ${MINIO_REGION}
     ports:
       - ${BACKEND_PORT}:${BACKEND_PORT}
     expose:
@@ -38,6 +43,7 @@ services:
       - keyboard-sim-network
     links:
       - keyboard-sim-db
+      - minio
     depends_on:
       - keyboard-sim-db
     restart: on-failure
@@ -72,6 +78,28 @@ services:
     networks:
       - keyboard-sim-network
     restart: always
+
+  minio:
+    image: minio/minio
+    command: server --console-address ":9001" /data/
+    ports:
+      - ${MINIO_API_PORT}:9000
+      - ${MINIO_CONSOLE_PORT}:9001
+    expose:
+      - ${MINIO_API_PORT}
+      - ${MINIO_CONSOLE_PORT}
+    environment:
+      MINIO_ROOT_USER: ${MINIO_USERNAME} # equal access key
+      MINIO_ROOT_PASSWORD: ${MINIO_PASSWORD} # equal secret key
+    volumes:
+      - ${MINIO_VOLUME}:/data
+    healthcheck:
+      test: [ "CMD", "curl", "-f", "http://localhost:9000/minio/health/live" ]
+      interval: 30s
+      timeout: 20s
+      retries: 3
+    networks:
+      - keyboard-sim-network
 
 networks:
   keyboard-sim-network:

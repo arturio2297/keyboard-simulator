@@ -7,6 +7,10 @@ public class errorMessages extends ListResourceBundle {
     @Override
     protected Object[][] getContents() {
         return new Object[][] {
+                {"1000", "Unknown server error"},
+                {"1001", "Access denied"},
+                {"1002", "Requested content not found"},
+                {"1003", "Invalid request data"},
                 {"2000", "Invalid email or password"},
                 {"3000", "User with specified email already exists. Try another email"},
                 {"3001", "Invalid registration confirmation code. Try enter another code"},

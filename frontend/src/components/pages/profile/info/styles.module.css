@@ -1,0 +1,26 @@
+.info-section {
+    flex: 1;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    gap: 16px;
+    border-right: solid var(--gray) 1px;
+    padding: 16px;
+    box-sizing: border-box;
+}
+
+.info-section .avatar-segment {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.avatar-segment .avatar {
+    align-self: center;
+}
+
+.info-section .form {
+    display: flex;
+    flex-direction: column;
+}
