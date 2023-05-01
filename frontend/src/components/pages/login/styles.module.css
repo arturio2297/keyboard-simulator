@@ -1,3 +1,35 @@
 .login-page {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 32px;
+    box-sizing: border-box;
+}
 
+.section {
+    max-width: 500px;
+    width: 50%;
+    height: 100%;
+    position: relative;
+}
+
+.section .inner {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    gap: 16px;
+    width: 500px;
+}
+
+.inner .form {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.form .link {
+    text-align: center;
+    color: var(--gray);
 }

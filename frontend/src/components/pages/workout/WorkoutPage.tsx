@@ -6,6 +6,8 @@ import StartSection from "./start/StartSection";
 import SimulationSection from "./simulation/SimulationSection";
 import ResultSection from "./result/ResultSection";
 import Loader from "../../../ui/loader/Loader";
+import Footer from "../../common/footer/Footer";
+import Header from "../../common/header/Header";
 
 function WorkoutPage(): JSX.Element {
 
@@ -14,15 +16,20 @@ function WorkoutPage(): JSX.Element {
 
   return (
     <main className={styles['workout-page']}>
-      {simulationStore.isStatus(SimulationStatus.NONE) && <StartSection/>}
+      {simulationStore.isStatus(SimulationStatus.NONE) &&
+          <>
+              <Header classname="fixed-header"/>
+              <StartSection/>
+              <Footer classname="fixed-footer"/>
+          </>}
       {simulationStore.isStatus(SimulationStatus.READY, SimulationStatus.START, SimulationStatus.PAUSE, SimulationStatus.END) &&
-      <SimulationSection/>}
+          <SimulationSection/>}
       {simulationStore.isStatus(SimulationStatus.RESULT) &&
-      <ResultSection/>}
+          <ResultSection/>}
       {loading.fetchText &&
-      <Loader>
-          Text generation...
-      </Loader>}
+          <Loader>
+              Text generation...
+          </Loader>}
     </main>
   );
 }

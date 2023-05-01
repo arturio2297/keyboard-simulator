@@ -1,9 +1,9 @@
 .section-appearance  {
-    animation: section-appearance .75s forwards ease-in-out;
+    animation: section-appearance .5s forwards ease-in-out;
 }
 
 .section-disappearance {
-    animation: section-disappearance .75s forwards ease-in-out;
+    animation: section-disappearance .5s forwards ease-in-out;
 }
 
 @keyframes section-appearance {
@@ -26,4 +26,16 @@
         left: 25%;
         opacity: 0;
     }
+}
+
+.fixed-header {
+    position: fixed;
+    left: 0;
+    top: 0;
+}
+
+.fixed-footer {
+    position: fixed;
+    left: 0;
+    bottom: 0;
 }

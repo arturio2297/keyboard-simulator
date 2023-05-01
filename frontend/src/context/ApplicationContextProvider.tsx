@@ -7,7 +7,8 @@ const contextValue: ApplicationContextValue = {
   rootStore,
   simulationStore: rootStore.simulatorStore,
   registrationStore: rootStore.registrationStore,
-  accountStore: rootStore.accountStore
+  accountStore: rootStore.accountStore,
+  uiStore: rootStore.uiStore
 }
 
 export const ApplicationContext = createContext<ApplicationContextValue>(contextValue);

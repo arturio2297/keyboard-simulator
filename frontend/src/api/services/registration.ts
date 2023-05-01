@@ -8,6 +8,12 @@ class RegistrationApiService {
     return apiClient.post('/api/v1/register/send-code', request);
   }
 
+  public async checkCode(codeValue: Code, email: Email): Promise<AxiosResponse<boolean>> {
+    return apiClient.get('/api/v1/register/check-code', {
+      params: {codeValue, email}
+    });
+  }
+
   public async confirm(request: ConfirmRegistrationRequest): Promise<AxiosResponse<void>> {
     return apiClient.post('/api/v1/register', request);
   }

@@ -7,7 +7,6 @@ import {useState} from "react";
 import Select from "../../../../ui/select/Select";
 import Checkbox from "../../../../ui/checkbox/Checkbox";
 import useClose from "../../../../hooks/useClose";
-import {useNavigate} from "react-router-dom";
 
 interface State {
   paragraphsCount: number;
@@ -23,24 +22,11 @@ function StartSection(): JSX.Element {
 
   const [state, setState] = useState<State>(initialState);
   const [closed, close] = useClose();
-  const navigate = useNavigate();
   const {simulationStore} = useStores();
 
   const onStartClick = () => {
     close(() => {
       simulationStore.ready(state.paragraphsCount, state.showHints);
-    });
-  }
-
-  const onStatisticClick = () => {
-    close(() => {
-      navigate('/stats');
-    });
-  }
-
-  const onAboutClick = () => {
-    close(() => {
-      navigate('/about');
     });
   }
 
@@ -51,6 +37,8 @@ function StartSection(): JSX.Element {
       }))}>
         <p>
           Press <b>"Start"</b> to start your workout.
+        </p>
+        <p>
           Before start you can select the number of paragraphs and enable/disable virtual keyboard hints
         </p>
         <div className={styles['settings']}>
@@ -76,20 +64,6 @@ function StartSection(): JSX.Element {
           variant="success"
         >
           Start
-        </Button>
-        <hr/>
-        <p>
-          Click on <b>"Statistic"</b> to see the results of all working sessions
-        </p>
-        <Button onClick={onStatisticClick}>
-          Statistic
-        </Button>
-        <hr/>
-        <p>
-          Click to <b>"About"</b> to learn more about this application
-        </p>
-        <Button onClick={onAboutClick}>
-          About
         </Button>
       </div>
     </section>

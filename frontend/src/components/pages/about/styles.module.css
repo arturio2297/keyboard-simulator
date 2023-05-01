@@ -6,38 +6,15 @@
     justify-content: center;
 }
 
-.about-page .inner {
-    position: absolute;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    gap: 16px;
-    overflow: hidden auto;
+.about-page .section {
+
 }
 
-.inner .header {
-    width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 16px;
-    box-sizing: border-box;
-}
-
-.inner .segment {
-    flex: 1;
-    padding: 16px 25%;
-}
-
-.segment p {
+.section p {
     color: var(--gray);
 }
 
-.segment .link {
+.section .link {
     color: var(--gray);
     margin: 0 4px;
 }

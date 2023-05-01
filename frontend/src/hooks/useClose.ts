@@ -2,7 +2,7 @@ import {useState} from "react";
 
 type Close = (afterClose?: Close) => void;
 
-const useClose = (timeout = 750): [boolean, Close] => {
+const useClose = (timeout = 500): [boolean, Close] => {
 
   const [closed, setClosed] = useState(false);
 

@@ -2,8 +2,9 @@ import {makeAutoObservable, runInAction} from "mobx";
 import {Action, LoadingState} from "../contracts/common.contracts";
 import {ConfirmRegistrationRequest, SendRegistrationCodeRequest} from "../contracts/api/registration.contracts";
 import api from "../api";
+import {isSuccessResponse} from "../utils/axios.utils";
 
-type LoadingKeys = 'sendCode' | 'confirm';
+type LoadingKeys = 'sendCode' | 'checkCode' | 'confirm';
 
 export class RegistrationStore {
 
@@ -16,11 +17,22 @@ export class RegistrationStore {
   public sendCode(request: SendRegistrationCodeRequest, onSuccess: Action) {
     this._loading.sendCode = true;
     api.registration.sendCode(request)
-      .then(() => {
-        onSuccess();
+      .then(response => {
+        isSuccessResponse(response) && onSuccess();
       })
       .finally(() => {
         runInAction(() => this._loading.sendCode = false);
+      });
+  }
+
+  public checkCode(codeValue: Code, email: Email, onSuccess: Action, onFail: Action) {
+    this._loading.checkCode = true;
+    api.registration.checkCode(codeValue, email)
+      .then(response => {
+        response.data ? onSuccess() : onFail();
+      })
+      .finally(() => {
+        runInAction(() => this._loading.checkCode = false);
       });
   }
 
