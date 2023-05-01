@@ -10,9 +10,15 @@ import {useFormik} from "formik";
 import Input from "../../../../ui/input/Input";
 import {prettyDate} from "../../../../utils/date.utils";
 import Button from "../../../../ui/button/Button";
+import {Edit} from "react-feather";
+import IconButton from "../../../../ui/icon-button/IconButton";
+import useDialog from "../../../../hooks/useDialog";
+import ChangeEmailDialog from "./change-email-dialog/ChangeEmailDialog";
+import ChangePasswordDialog from "./change-password-dialog/ChangePasswordDialog";
 
 interface FormValues {
   email: Email;
+  password: Password;
   firstname: string;
   lastname: string;
   registrationDate: DateString;
@@ -30,6 +36,7 @@ function InfoSection(): JSX.Element {
   const formik = useFormik<FormValues>({
     initialValues: {
       email: account.email,
+      password: '******',
       firstname: account.firstname,
       lastname: account.lastname,
       registrationDate: account.registrationDate
@@ -39,9 +46,27 @@ function InfoSection(): JSX.Element {
       account.update({firstname, lastname});
     }
   });
+  const {
+    show: showChangeEmailDialog,
+    open: openChangeEmailDialog,
+    close: closeChangeEmailDialog
+  } = useDialog();
+  const {
+    show: showChangePasswordDialog,
+    open: openChangePasswordDialog,
+    close: closeChangePasswordDialog
+  } = useDialog();
 
   const onAvatarChange = (avatar: File) => {
     account.updateAvatar(avatar);
+  }
+
+  const onEmailChanged = (email: Email) => {
+
+  }
+
+  const onPasswordChanged = (password: Password) => {
+
   }
 
   return (
@@ -74,7 +99,32 @@ function InfoSection(): JSX.Element {
           value={formik.values.email}
           onChange={formik.handleChange}
           readOnly
-        />
+        >
+          <IconButton
+            classname={styles['edit-button']}
+            variant="text"
+            type="button"
+            onClick={openChangeEmailDialog}
+          >
+            <Edit/>
+          </IconButton>
+        </Input>
+        <Input
+          name="password"
+          label="Password"
+          value={formik.values.password}
+          onChange={formik.handleChange}
+          readOnly
+        >
+          <IconButton
+            classname={styles['edit-button']}
+            variant="text"
+            type="button"
+            onClick={openChangePasswordDialog}
+          >
+            <Edit/>
+          </IconButton>
+        </Input>
         <Input
           name="firstname"
           label="Firstname"
@@ -106,6 +156,16 @@ function InfoSection(): JSX.Element {
           Update
         </Button>
       </form>
+      {showChangeEmailDialog &&
+      <ChangeEmailDialog
+          onCancel={closeChangeEmailDialog}
+          onConfirm={onEmailChanged}
+      />}
+      {showChangePasswordDialog &&
+      <ChangePasswordDialog
+          onCancel={closeChangePasswordDialog}
+          onConfirm={onPasswordChanged}
+      />}
     </section>
   );
 }

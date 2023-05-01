@@ -1,0 +1,9 @@
+.form {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.form .label {
+    color: var(--black);
+}

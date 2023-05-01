@@ -74,7 +74,7 @@ public class AccountService {
     }
 
     public boolean checkPassword(String password) {
-        return passwordEncoder.matches(get().getPassword(), password);
+        return passwordEncoder.matches(password, get().getPassword());
     }
 
     public void updatePassword(UpdatePasswordRequest request) {

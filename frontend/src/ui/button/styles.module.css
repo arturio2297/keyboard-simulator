@@ -12,6 +12,7 @@
 .button .inner {
     display: flex;
     align-items: center;
+    gap: 4px;
 }
 
 .button.light {
