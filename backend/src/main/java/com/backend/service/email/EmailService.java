@@ -34,6 +34,12 @@ public class EmailService {
         sendText(email, subject, MessageFormat.format(text, code));
     }
 
+    public void sendRecoveryPasswordCode(String email, String code) {
+        final String subject = localeService.getMessage("mailMessages", "passwordRecoverySubject");
+        final String text = localeService.getMessage("mailMessages", "passwordRecoveryText");
+        sendText(email, subject, MessageFormat.format(text, code));
+    }
+
     public void sendText(String to, String subject, String text) {
         final SimpleMailMessage message = new SimpleMailMessage();
 

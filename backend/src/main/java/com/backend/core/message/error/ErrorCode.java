@@ -20,7 +20,10 @@ public enum ErrorCode {
 
     AccountUserAlreadyExists(4000, HttpStatus.BAD_REQUEST),
     AccountChangeEmailCodeNotFound(4001, HttpStatus.BAD_REQUEST),
-    AccountChangeEmailCodeExpired(4002, HttpStatus.BAD_REQUEST);
+    AccountChangeEmailCodeExpired(4002, HttpStatus.BAD_REQUEST),
+
+    PasswordRecoveryCodeNotFound(5000, HttpStatus.BAD_REQUEST),
+    PasswordRecoveryCodeExpired(5001, HttpStatus.BAD_REQUEST);
 
     @JsonValue
     private final int value;
