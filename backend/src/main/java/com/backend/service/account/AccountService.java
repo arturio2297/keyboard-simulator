@@ -108,7 +108,6 @@ public class AccountService {
         code.setExpirationDate(expirationDate);
 
         emailService.sendChangeEmailCode(request.getEmail(), codeValue);
-
         codeRepository.save(code);
     }
 

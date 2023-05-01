@@ -63,7 +63,7 @@ docker-compose --env-file=".env.local" -f docker-compose.local.yml up minio -d
 # Future features
 - [X] User`s registration
 - [X] Edit user`s profile data
-- [ ] User`s password recovery
+- [X] User`s password recovery
 - [ ] Storing user`s statistics in the database and show to frontend
 - [ ] User`s achievement system
 - [ ] Internationalization (ru, en languages)

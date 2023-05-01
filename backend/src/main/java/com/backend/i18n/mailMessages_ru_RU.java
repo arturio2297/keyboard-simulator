@@ -10,7 +10,9 @@ public class mailMessages_ru_RU extends ListResourceBundle {
                 {"registrationSubject", "Регистрация в Keyboard Simulator"},
                 {"registrationText", "Ваш код для подтверждения регистрации: {0}"},
                 {"changeEmailSubject", "Смена email в Keyboard Simulator"},
-                {"changeEmailText", "Ваш код подтверждения смены email: {0}"}
+                {"changeEmailText", "Ваш код для подтверждения смены email: {0}"},
+                {"passwordRecoverySubject", "Восстановление пароля в Keyboard Simulator"},
+                {"passwordRecoveryText", "Ваш для подтверждения восстановления пароля: {0}"}
         };
     }
 }

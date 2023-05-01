@@ -10,7 +10,9 @@ public class mailMessages_en_US extends ListResourceBundle {
                 {"registrationSubject", "Registration in Keyboard Simulator"},
                 {"registrationText", "Your registration confirmation code: {0}"},
                 {"changeEmailSubject", "Change email in Keyboard Simulator"},
-                {"changeEmailText", "Your change email confirmation code: {0}"}
+                {"changeEmailText", "Your change email confirmation code: {0}"},
+                {"passwordRecoverySubject", "Password recovery in Keyboard Simulator"},
+                {"passwordRecoveryText", "Your password recovery confirmation code: {0}"}
         };
     }
 }

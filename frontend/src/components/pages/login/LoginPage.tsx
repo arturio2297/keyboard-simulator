@@ -49,6 +49,10 @@ function LoginPage(): JSX.Element {
     close(() => navigate(urls.registration));
   }
 
+  const onPasswordRecoveryPageClick = () => {
+    close(() => navigate(urls.passwordRecovery));
+  }
+
   return (
     <main className={styles['login-page']}>
       <Header classname="fixed-header"/>
@@ -90,6 +94,13 @@ function LoginPage(): JSX.Element {
               onClick={onRegistrationPageClick}
             >
               I don't have an account yet
+            </Button>
+            <Button
+              type="button"
+              variant="text"
+              onClick={onPasswordRecoveryPageClick}
+            >
+              Forgot your password?
             </Button>
           </form>
         </Card>

@@ -10,13 +10,16 @@ const about = '/about';
 
 const profile = '/profile'
 
+const passwordRecovery = '/password-recovery';
+
 const urls = {
   main,
   login,
   registration,
   workout,
   about,
-  profile
+  profile,
+  passwordRecovery
 };
 
 export default urls;
