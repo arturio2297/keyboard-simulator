@@ -17,7 +17,7 @@ import java.util.Date;
 public class EmailService {
 
     @Value("${spring.mail.username}")
-    private String email;
+    private String emailFrom;
 
     private final JavaMailSender sender;
     private final LocaleService localeService;
@@ -28,10 +28,16 @@ public class EmailService {
         sendText(email, subject, MessageFormat.format(text, code));
     }
 
+    public void sendChangeEmailCode(String email, String code) {
+        final String subject = localeService.getMessage("mailMessages", "changeEmailSubject");
+        final String text = localeService.getMessage("mailMessages", "changeEmailText");
+        sendText(email, subject, MessageFormat.format(text, code));
+    }
+
     public void sendText(String to, String subject, String text) {
         final SimpleMailMessage message = new SimpleMailMessage();
 
-        message.setFrom(email);
+        message.setFrom(emailFrom);
         message.setTo(to);
         message.setSubject(subject);
         message.setText(text);

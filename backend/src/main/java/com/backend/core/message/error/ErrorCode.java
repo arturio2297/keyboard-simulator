@@ -16,7 +16,11 @@ public enum ErrorCode {
 
     RegistrationUserAlreadyExists(3000, HttpStatus.BAD_REQUEST),
     RegistrationInvalidCode(3001, HttpStatus.BAD_REQUEST),
-    RegistrationCodeExpired(3002, HttpStatus.BAD_REQUEST);
+    RegistrationCodeExpired(3002, HttpStatus.BAD_REQUEST),
+
+    AccountUserAlreadyExists(4000, HttpStatus.BAD_REQUEST),
+    AccountChangeEmailCodeNotFound(4001, HttpStatus.BAD_REQUEST),
+    AccountChangeEmailCodeExpired(4002, HttpStatus.BAD_REQUEST);
 
     @JsonValue
     private final int value;

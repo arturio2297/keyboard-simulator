@@ -13,8 +13,11 @@ public class errorMessages_en_US extends ListResourceBundle {
                 {"1003", "Invalid request data"},
                 {"2000", "Invalid email or password"},
                 {"3000", "User with specified email already exists. Try another email"},
-                {"3001", "Invalid registration confirmation code. Try enter another code"},
-                {"3002", "Registration confirmation code has already expired. Retry registration"}
+                {"3001", "Invalid registration confirmation code. Check the correctness of the entered code"},
+                {"3002", "Registration confirmation code has already expired. Retry registration"},
+                {"4000", "User with specified email already exists. Try another email"},
+                {"4001", "Invalid change email confirmation code. Check the correctness of the entered code"},
+                {"4002", "Change email confirmation code has already expired. Retry change email"}
         };
     }
 }
