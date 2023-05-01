@@ -7,7 +7,8 @@ export interface ButtonProps {
   onClick?: Action;
   children?: ReactNode;
   classname?: string;
-  variant?: 'light' | 'dark' | 'success' | 'danger' | 'warning';
+  variant?: 'light' | 'dark' | 'success' | 'danger' | 'warning' | 'text';
+  type?: 'button' | 'submit'
 }
 
 function Button(props: ButtonProps):JSX.Element {
@@ -18,6 +19,7 @@ function Button(props: ButtonProps):JSX.Element {
     <button
       className={cs(styles['button'], 'with-title', styles[variant], props.classname)}
       onClick={props.onClick}
+      type={props.type}
     >
       {props.children}
     </button>

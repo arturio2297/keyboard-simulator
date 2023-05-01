@@ -35,11 +35,11 @@ function SimulationSection():JSX.Element {
     return () => {
       document.removeEventListener('keyup', keyUpListener);
     }
-  }, []);
+  }, [simulationStore]);
 
   useEffect(() => {
     simulationStore.isStatus(SimulationStatus.END) && close();
-  }, [status]);
+  }, [status, simulationStore, close]);
 
   const onStartClick = () => {
     simulationStore.start();

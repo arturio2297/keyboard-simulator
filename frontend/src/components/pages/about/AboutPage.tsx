@@ -1,32 +1,14 @@
 import {observer} from "mobx-react-lite";
 import styles from "./styles.module.css";
-import {cs, csc} from "../../../utils/styles.utils";
-import useClose from "../../../hooks/useClose";
-import Button from "../../../ui/button/Button";
-import {useNavigate} from "react-router-dom";
+import Header from "../../common/header/Header";
+import Footer from "../../common/footer/Footer";
 
 function AboutPage(): JSX.Element {
 
-  const [closed, close] = useClose();
-  const navigate = useNavigate();
-
-  const onBackClick = () => {
-    close(() => {
-      navigate('/');
-    });
-  }
-
   return (
     <main className={styles['about-page']}>
-      <div className={cs(styles['inner'], 'section-appearance', csc({
-        'section-disappearance': closed
-      }))}>
-        <div className={styles['header']}>
-          <Button onClick={onBackClick}>
-            Back
-          </Button>
-        </div>
-        <div className={styles['segment']}>
+      <Header classname="fixed-header"/>
+        <section className={styles['section']}>
           <p>
             The application is designed as a keyboard typing simulator.
           </p>
@@ -48,8 +30,8 @@ function AboutPage(): JSX.Element {
             All statistics on the results of working sessions is stored in the device's memory and, if desired,
             can be reset in the corresponding section
           </p>
-        </div>
-      </div>
+        </section>
+      <Footer classname="fixed-footer" hideAboutPageLink/>
     </main>
   );
 }

@@ -1,0 +1,33 @@
+.confirm-form-section {
+    max-width: 500px;
+    width: 50%;
+    height: 100%;
+    position: relative;
+}
+
+.confirm-form-section .inner {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    gap: 16px;
+    width: 500px;
+}
+
+.inner .form {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.form .text {
+    color: var(--gray);
+}
+
+.form .code-field-container {
+    width: 200px;
+    align-self: center;
+}
+
+.form .code-field-container input {
+    text-align: center;
+}

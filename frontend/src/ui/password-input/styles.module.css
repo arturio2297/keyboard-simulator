@@ -1,0 +1,14 @@
+.button {
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.button * {
+    color: var(--black);
+}
+
+.button:active {
+    transform: translateY(calc(-50% + 1px));
+}

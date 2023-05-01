@@ -26,6 +26,7 @@ yarn --cwd ./frontend start
 - [backend](http://localhost:8080)
 - [swagger-ui](http://localhost:8080/swagger-ui/index.html)
 - [frontend](http://localhost:3000)
+- [mailhog-ui](http://localhost:8026)
 
 ## Docker Start
 To run in docker, you only need docker itself (building is done inside docker)
@@ -48,6 +49,10 @@ docker-compose --env-file=".env.local" -f docker-compose.local.yml up -d
 ### Down
 ```shell
 docker-compose --env-file=".env.local" -f docker-compose.local.yml down
+```
+### Start Mailhog Only
+```shell
+docker-compose --env-file=".env.local" -f docker-compose.local.yml up mailhog -d
 ```
 
 # Future features

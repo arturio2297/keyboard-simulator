@@ -1,0 +1,35 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.container label {
+    font-weight: 600;
+    color: var(--gray);
+    margin-left: 8px;
+}
+
+.container .input-container {
+    position: relative;
+}
+
+.input-container input {
+    height: 40px;
+    box-sizing: border-box;
+    border-radius: 10px;
+    background: var(--gray);
+    padding: 8px;
+    width: 100%;
+}
+
+.container .error {
+    color: var(--red);
+    font-size: 14px;
+    margin-left: 8px;
+    visibility: hidden;
+}
+
+.error.show {
+    visibility: visible;
+}
