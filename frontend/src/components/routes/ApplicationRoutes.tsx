@@ -11,6 +11,7 @@ const LoginPage = lazy(() => import("../pages/login/LoginPage"));
 const WorkoutPage = lazy(() => import("../pages/workout/WorkoutPage"));
 const StatisticPage = lazy(() => import("../pages/statistic/StatisticPage"));
 const AboutPage = lazy(() => import("../pages/about/AboutPage"));
+const ProfilePage = lazy(() => import("../pages/profile/ProfilePage"));
 
 function ApplicationRoutes(): JSX.Element {
 
@@ -24,6 +25,10 @@ function ApplicationRoutes(): JSX.Element {
               <Route path={urls.login} element={<Suspense><LoginPage/></Suspense>}/>
               <Route path={urls.registration} element={<Suspense><RegistrationPage/></Suspense>}/>
           </>}
+      {account &&
+      <>
+          <Route path={urls.profile} element={<Suspense><ProfilePage/></Suspense>}/>
+      </>}
       <Route path={urls.main} element={<Suspense><MainPage/></Suspense>}/>
       <Route path={urls.workout} element={<Suspense><WorkoutPage/></Suspense>}/>
       <Route path="/stats" element={<Suspense><StatisticPage/></Suspense>}/>

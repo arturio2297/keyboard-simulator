@@ -1,6 +1,7 @@
 .icon-button {
-    display: flex;
-    align-items: center;
-    justify-content: center;
+
+}
+
+.icon-button > div {
     gap: 4px;
 }

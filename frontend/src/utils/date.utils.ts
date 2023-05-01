@@ -13,3 +13,7 @@ export const formatTime = (value: number, format: TimeFormat = TimeFormat.MM_SS)
     .map(([_, value]) => value < 10 ? '0' + value : value)
     .join(':');
 }
+
+export const prettyDate = (value: Date | DateString): DateString => {
+  return new Date(value).toLocaleDateString();
+}

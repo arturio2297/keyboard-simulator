@@ -7,6 +7,8 @@ import urls from "../../../urls";
 import ConfirmDialog from "../dialogs/ConfirmDialog";
 import useDialog from "../../../hooks/useDialog";
 import {cs} from "../../../utils/styles.utils";
+import IconButton from "../../../ui/icon-button/IconButton";
+import {User} from "react-feather";
 
 interface HeaderProps {
   showActions?: boolean;
@@ -32,7 +34,12 @@ function Header(props: HeaderProps): JSX.Element {
         ? <>
         {account ?
           <section className={styles['account-section']}>
-            <p>{account.email}</p>
+            <NavLink to={urls.profile}>
+              <IconButton>
+                {account.email}
+                <User/>
+              </IconButton>
+            </NavLink>
             <Button
               variant="warning"
               onClick={logoutDialog.open}
