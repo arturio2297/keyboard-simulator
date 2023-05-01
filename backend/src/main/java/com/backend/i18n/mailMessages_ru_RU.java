@@ -8,7 +8,9 @@ public class mailMessages_ru_RU extends ListResourceBundle {
     protected Object[][] getContents() {
         return new Object[][] {
                 {"registrationSubject", "Регистрация в Keyboard Simulator"},
-                {"registrationText", "Ваш код для подтверждения регистрации: {0}"}
+                {"registrationText", "Ваш код для подтверждения регистрации: {0}"},
+                {"changeEmailSubject", "Смена email в Keyboard Simulator"},
+                {"changeEmailText", "Ваш код подтверждения смены email: {0}"}
         };
     }
 }

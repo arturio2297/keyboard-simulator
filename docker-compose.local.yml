@@ -81,7 +81,7 @@ services:
 
   minio:
     image: minio/minio
-    command: server --console-address ":9001" /data/
+    container_name: keyboard-sim-minio
     ports:
       - ${MINIO_API_PORT}:9000
       - ${MINIO_CONSOLE_PORT}:9001
@@ -100,6 +100,8 @@ services:
       retries: 3
     networks:
       - keyboard-sim-network
+    command: server --console-address ":9001" /data/
+    restart: always
 
 networks:
   keyboard-sim-network:

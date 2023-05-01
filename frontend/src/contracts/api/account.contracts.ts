@@ -16,3 +16,16 @@ export interface UpdateAccountRequest {
   firstname: string;
   lastname: string;
 }
+
+export interface UpdatePasswordRequest {
+  password: Password;
+}
+
+export interface SendChangeEmailCodeRequest {
+  email: Email;
+}
+
+export interface ConfirmChangeEmailCodeRequest {
+  email: Email;
+  code: Code;
+}

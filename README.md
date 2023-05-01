@@ -55,7 +55,6 @@ docker-compose --env-file=".env.local" -f docker-compose.local.yml down
 ```shell
 docker-compose --env-file=".env.local" -f docker-compose.local.yml up mailhog -d
 ```
-
 ### Start Minio Only
 ```shell
 docker-compose --env-file=".env.local" -f docker-compose.local.yml up minio -d

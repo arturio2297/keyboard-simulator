@@ -1,5 +1,10 @@
 import {AxiosResponse} from "axios";
-import {AccountDTO, UpdateAccountRequest} from "../../contracts/api/account.contracts";
+import {
+  AccountDTO,
+  UpdatePasswordRequest, ConfirmChangeEmailCodeRequest,
+  SendChangeEmailCodeRequest,
+  UpdateAccountRequest
+} from "../../contracts/api/account.contracts";
 import apiClient from "../client";
 
 export class AccountApiService {
@@ -16,6 +21,24 @@ export class AccountApiService {
     const formData = new FormData();
     formData.set('avatar', avatar);
     return await apiClient.post('/api/v1/account/avatar', formData);
+  }
+
+  public async checkPassword(password: Password): Promise<AxiosResponse<boolean>> {
+    return await apiClient.get('/api/v1/account/password', {
+      params: {password}
+    });
+  }
+
+  public async updatePassword(request: UpdatePasswordRequest): Promise<AxiosResponse<void>> {
+    return await apiClient.post('/api/v1/account/password', request);
+  }
+
+  public async sendChangeEmailCode(request: SendChangeEmailCodeRequest): Promise<AxiosResponse<void>> {
+    return await apiClient.post('/api/v1/account/email/send-code', request);
+  }
+
+  public async confirmChangeEmail(request: ConfirmChangeEmailCodeRequest): Promise<AxiosResponse<void>> {
+    return await apiClient.post('/api/v1/account/email', request);
   }
 
 }
