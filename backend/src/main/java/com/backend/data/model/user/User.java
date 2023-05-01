@@ -34,6 +34,9 @@ public class User extends EntityBase {
     @Column(name = "active")
     private boolean active;
 
+    @Column(name = "avatar_object_name", length = 32)
+    private String avatarObjectName;
+
     @OneToOne(cascade = CascadeType.ALL)
     private UserToken token;
 }
