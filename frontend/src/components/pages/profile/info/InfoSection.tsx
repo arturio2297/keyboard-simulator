@@ -61,14 +61,6 @@ function InfoSection(): JSX.Element {
     account.updateAvatar(avatar);
   }
 
-  const onEmailChanged = (email: Email) => {
-
-  }
-
-  const onPasswordChanged = (password: Password) => {
-
-  }
-
   return (
     <section className={styles['info-section']}>
       <div className={styles['avatar-segment']}>
@@ -156,16 +148,8 @@ function InfoSection(): JSX.Element {
           Update
         </Button>
       </form>
-      {showChangeEmailDialog &&
-      <ChangeEmailDialog
-          onCancel={closeChangeEmailDialog}
-          onConfirm={onEmailChanged}
-      />}
-      {showChangePasswordDialog &&
-      <ChangePasswordDialog
-          onCancel={closeChangePasswordDialog}
-          onConfirm={onPasswordChanged}
-      />}
+      {showChangeEmailDialog && <ChangeEmailDialog onCancel={closeChangeEmailDialog}/>}
+      {showChangePasswordDialog && <ChangePasswordDialog onCancel={closeChangePasswordDialog}/>}
     </section>
   );
 }

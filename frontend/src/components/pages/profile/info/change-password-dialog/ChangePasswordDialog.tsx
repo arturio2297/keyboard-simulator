@@ -1,6 +1,6 @@
 import {observer} from "mobx-react-lite";
 import styles from "./styles.module.css";
-import {Action, OnChange} from "../../../../../contracts/common.contracts";
+import {Action} from "../../../../../contracts/common.contracts";
 import Modal from "../../../../../ui/modal/Modal";
 import Button from "../../../../../ui/button/Button";
 import * as yup from "yup";
@@ -35,7 +35,6 @@ const validationSchema = yup.object().shape({
 
 interface Props {
   onCancel: Action;
-  onConfirm: OnChange<Password>;
 }
 
 function ChangePasswordDialog(props: Props): JSX.Element {

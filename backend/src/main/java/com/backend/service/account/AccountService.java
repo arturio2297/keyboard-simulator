@@ -85,7 +85,7 @@ public class AccountService {
 
     public void sendChangeEmailCode(SendChangeEmailCodeRequest request) throws ApplicationException {
         if (userRepository.existsByEmail(request.getEmail())) {
-            throw new ApplicationException(ErrorCode.CommonNotFound);
+            throw new ApplicationException(ErrorCode.AccountUserAlreadyExists);
         }
 
         if (StringUtils.equals(get().getEmail(), request.getEmail())) {
