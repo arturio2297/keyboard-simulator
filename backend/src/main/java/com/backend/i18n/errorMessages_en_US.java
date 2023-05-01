@@ -19,7 +19,8 @@ public class errorMessages_en_US extends ListResourceBundle {
                 {"4001", "Invalid change email confirmation code. Please check the correctness of the entered code"},
                 {"4002", "Change email confirmation code has already expired. Please retry change email"},
                 {"5000", "Invalid password recovery confirmation code. Please check the correctness of the entered code"},
-                {"5001", "Password recovery confirmation code has already expired. Please retry password recovery"}
+                {"5001", "Password recovery confirmation code has already expired. Please retry password recovery"},
+                {"5002", "User with specified email was not found. Please try enter another email"}
         };
     }
 }

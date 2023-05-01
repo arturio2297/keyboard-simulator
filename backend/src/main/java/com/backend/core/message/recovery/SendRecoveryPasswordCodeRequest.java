@@ -6,7 +6,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 @Getter@Setter
-public class SendPasswordRecoveryCodeRequest {
+public class SendRecoveryPasswordCodeRequest {
     @NotBlank
     @Email
     private String email;

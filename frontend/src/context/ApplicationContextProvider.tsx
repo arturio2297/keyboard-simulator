@@ -3,12 +3,14 @@ import {ApplicationContextValue} from "../contracts/context.contracts";
 import {createContext, ReactNode} from "react";
 
 const rootStore = new RootStore();
+
 const contextValue: ApplicationContextValue = {
   rootStore,
   simulationStore: rootStore.simulatorStore,
   registrationStore: rootStore.registrationStore,
   accountStore: rootStore.accountStore,
-  uiStore: rootStore.uiStore
+  uiStore: rootStore.uiStore,
+  passwordRecoveryStore: rootStore.passwordRecoveryStore
 }
 
 export const ApplicationContext = createContext<ApplicationContextValue>(contextValue);

@@ -2,7 +2,7 @@ package com.backend.controller;
 
 import com.backend.core.exception.ApplicationException;
 import com.backend.core.message.recovery.ConfirmRecoveryPasswordRequest;
-import com.backend.core.message.recovery.SendPasswordRecoveryCodeRequest;
+import com.backend.core.message.recovery.SendRecoveryPasswordCodeRequest;
 import com.backend.service.recovery.PasswordRecoveryService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
@@ -18,7 +18,7 @@ public class PasswordRecovery {
     private final PasswordRecoveryService passwordRecoveryService;
 
     @PostMapping("/send-code")
-    public void sendCode(@Valid @RequestBody SendPasswordRecoveryCodeRequest request) {
+    public void sendCode(@Valid @RequestBody SendRecoveryPasswordCodeRequest request) throws ApplicationException {
         passwordRecoveryService.sendCode(request);
     }
 

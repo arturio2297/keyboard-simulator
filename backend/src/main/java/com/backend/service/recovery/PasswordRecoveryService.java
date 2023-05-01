@@ -4,7 +4,7 @@ import com.backend.configuration.application.ApplicationConfiguration;
 import com.backend.core.exception.ApplicationException;
 import com.backend.core.message.error.ErrorCode;
 import com.backend.core.message.recovery.ConfirmRecoveryPasswordRequest;
-import com.backend.core.message.recovery.SendPasswordRecoveryCodeRequest;
+import com.backend.core.message.recovery.SendRecoveryPasswordCodeRequest;
 import com.backend.core.util.CodeUtil;
 import com.backend.data.model.code.Code;
 import com.backend.data.model.code.CodeType;
@@ -28,7 +28,11 @@ public class PasswordRecoveryService {
     private final ApplicationConfiguration configuration;
     private final PasswordEncoder passwordEncoder;
 
-    public void sendCode(SendPasswordRecoveryCodeRequest request) {
+    public void sendCode(SendRecoveryPasswordCodeRequest request) throws ApplicationException {
+        if (!userRepository.existsByEmail(request.getEmail())) {
+            throw new ApplicationException(ErrorCode.PasswordRecoveryUserNotFound);
+        }
+
         final Code code = codeRepository.findByEmailAndType(
                 request.getEmail(),
                 CodeType.RecoveryPassword
