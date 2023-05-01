@@ -56,7 +56,10 @@ docker-compose --env-file=".env.local" -f docker-compose.local.yml up mailhog -d
 ```
 
 # Future features
-- ~~User`s registration~~
-- Storing user`s statistics in the database
-- User`s achievement system
-- Internationalization (ru, en languages)
+- [X] User`s registration
+- [ ] Edit user`s profile data
+- [ ] User`s password recovery
+- [ ] Storing user`s statistics in the database and show to frontend
+- [ ] User`s achievement system
+- [ ] Internationalization (ru, en languages)
+- [ ] Admin application
