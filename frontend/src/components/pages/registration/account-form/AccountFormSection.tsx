@@ -4,16 +4,15 @@ import {cs, csc} from "../../../../utils/styles.utils";
 import useClose from "../../../../hooks/useClose";
 import Card from "../../../../ui/card/Card";
 import * as yup from "yup";
-import {password, requiredSting} from "../../../../validation/schemas";
 import {useFormik} from "formik";
 import Input from "../../../../ui/input/Input";
 import Button from "../../../../ui/button/Button";
 import {useNavigate} from "react-router-dom";
 import urls from "../../../../urls";
 import useStores from "../../../../hooks/useStores";
-import Loader from "../../../../ui/loader/Loader";
 import {OnChange} from "../../../../contracts/common.contracts";
 import PasswordInput from "../../../../ui/password-input/PasswordInput";
+import schemas from "../../../../validation/schemas";
 
 export interface FormValues {
   email: Email;
@@ -32,10 +31,10 @@ const initialValues: FormValues = {
 }
 
 const validationSchema = yup.object().shape({
-  email: requiredSting('Email is required'),
-  firstname: requiredSting('Firstname is required'),
-  lastname: requiredSting('Lastname is required'),
-  password: password('Password must be contains 8 characters or more'),
+  email: schemas.email(),
+  firstname: schemas.requiredSting(),
+  lastname: schemas.requiredSting(),
+  password: schemas.password(),
   repeatPassword: yup.string().test({
     message: 'Passwords must be equal',
     name: 'repeatPassword',
@@ -86,6 +85,7 @@ function AccountFormSection(props: Props): JSX.Element {
             onChange={formik.handleChange}
             touched={formik.touched.email}
             error={formik.errors.email}
+            readOnly={loading.sendCode}
           />
           <Input
             name="firstname"
@@ -94,6 +94,7 @@ function AccountFormSection(props: Props): JSX.Element {
             onChange={formik.handleChange}
             touched={formik.touched.firstname}
             error={formik.errors.firstname}
+            readOnly={loading.sendCode}
           />
           <Input
             name="lastname"
@@ -102,6 +103,7 @@ function AccountFormSection(props: Props): JSX.Element {
             onChange={formik.handleChange}
             touched={formik.touched.lastname}
             error={formik.errors.lastname}
+            readOnly={loading.sendCode}
           />
           <PasswordInput
             name="password"
@@ -110,6 +112,7 @@ function AccountFormSection(props: Props): JSX.Element {
             onChange={formik.handleChange}
             touched={formik.touched.password}
             error={formik.errors.password}
+            readOnly={loading.sendCode}
           />
           <PasswordInput
             name="repeatPassword"
@@ -118,6 +121,7 @@ function AccountFormSection(props: Props): JSX.Element {
             onChange={formik.handleChange}
             touched={formik.touched.repeatPassword}
             error={formik.errors.repeatPassword}
+            readOnly={loading.sendCode}
           />
           <Button
             variant="success"
@@ -129,12 +133,12 @@ function AccountFormSection(props: Props): JSX.Element {
             variant="text"
             type="button"
             onClick={onLoginPageClick}
+            loading={loading.sendCode}
           >
             I already have account
           </Button>
         </form>
       </Card>
-      {loading.sendCode && <Loader/>}
     </section>
   );
 }

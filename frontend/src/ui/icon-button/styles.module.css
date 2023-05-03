@@ -1,7 +1,16 @@
 .icon-button {
-
+    background: none !important;
+    padding: 4px;
 }
 
-.icon-button > div {
-    gap: 4px;
+.icon-button svg {
+    color: inherit;
+}
+
+.icon-button.light {
+    color: var(--gray);
+}
+
+.icon-button.dark {
+    color: var(--black);
 }

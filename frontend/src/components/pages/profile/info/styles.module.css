@@ -6,7 +6,7 @@
     justify-content: space-around;
     gap: 16px;
     border-right: solid var(--gray) 1px;
-    padding: 16px;
+    padding: 8px 16px;
     box-sizing: border-box;
 }
 

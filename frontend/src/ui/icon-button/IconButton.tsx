@@ -10,7 +10,7 @@ function IconButton(props: IconButtonProps): JSX.Element {
   return (
     <Button
       {...props}
-      classname={cs(styles['icon-button'], props.classname)}
+      classname={cs(styles['icon-button'], styles[props.variant || 'light'], props.classname)}
     />
   );
 }

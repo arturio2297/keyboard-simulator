@@ -2,14 +2,19 @@
 
 :root {
   --black: #233142;
+  --black-dark: #0f151c;
   --blue: #455d7a;
   --red: #f95959;
+  --red-dark: #a43b3b;
   --orange: #e8630a;
+  --orange-dark: #9d4408;
   --gray: #e3e3e3;
+  --gray-dark: #989898;
   --green: #42b883;
+  --green-dark: #276e4d;
 
   --header-height: 60px;
-  --footer-height: 120px;
+  --footer-height: 100px;
 }
 
 body {

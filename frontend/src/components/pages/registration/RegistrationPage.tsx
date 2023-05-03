@@ -22,7 +22,7 @@ function RegistrationPage(): JSX.Element {
   const {accountStore, registrationStore} = useStores();
   const {loading: accountLoading} = accountStore;
   const {loading: registrationLoading} = registrationStore;
-  const loading = accountLoading.login || accountLoading.fetchAccount || registrationLoading.confirm;
+  const loading = accountLoading.login || registrationLoading.confirm;
   const [state, setState] = useState<State>(initialState);
 
   const onCodeChecked = ({code}: CodeFormValues) => {

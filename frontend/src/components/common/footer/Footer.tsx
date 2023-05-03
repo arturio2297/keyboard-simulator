@@ -1,11 +1,11 @@
 import {observer} from "mobx-react-lite";
 import styles from "./styles.module.css";
 import {cs} from "../../../utils/styles.utils";
-import {NavLink} from "react-router-dom";
 import urls from "../../../urls";
 import Button from "../../../ui/button/Button";
 import IconButton from "../../../ui/icon-button/IconButton";
 import {GitHub} from "react-feather";
+import Link from "../../../ui/link/Link";
 
 export interface FooterProps {
   hideAboutPageLink?: boolean;
@@ -18,20 +18,23 @@ function Footer(props: FooterProps): JSX.Element {
     <footer className={cs(styles['footer'], props.classname)}>
       {props.hideAboutPageLink
         ? <div/>
-        : <NavLink to={urls.about}>
+        : <Link
+          href={urls.about}
+          underline="none"
+        >
           <Button variant="dark">
             About This Application
           </Button>
-        </NavLink>}
-      <a
+        </Link>}
+      <Link
         href="https://github.com/arturio2297/keyboard-simulator"
-        target="_blank"
-        rel="noreferrer"
+        external
+        underline="none"
       >
-        <IconButton>
+        <IconButton variant="dark">
           <GitHub/>
         </IconButton>
-      </a>
+      </Link>
     </footer>
   );
 }

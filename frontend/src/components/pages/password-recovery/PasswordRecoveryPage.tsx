@@ -6,23 +6,21 @@ import {useState} from "react";
 import {cs} from "../../../utils/styles.utils";
 import Card from "../../../ui/card/Card";
 import * as yup from "yup";
-import {code, password, requiredSting} from "../../../validation/schemas";
 import {useFormik} from "formik";
 import useStores from "../../../hooks/useStores";
 import Input from "../../../ui/input/Input";
 import Button from "../../../ui/button/Button";
 import PasswordInput from "../../../ui/password-input/PasswordInput";
-import {noOp} from "../../../utils/object.utils";
-import {useNavigate} from "react-router-dom";
-import urls from "../../../urls";
 import Loader from "../../../ui/loader/Loader";
+import Text from "../../../ui/text/Text";
+import schemas from "../../../validation/schemas";
 
 interface EmailFormValues {
   email: Email;
 }
 
 const emailValidationSchema = yup.object().shape({
-  email: requiredSting('Email is required')
+  email: schemas.email()
 })
 
 interface CodeFormValues {
@@ -30,7 +28,7 @@ interface CodeFormValues {
 }
 
 const codeValidationSchema = yup.object().shape({
-  code: code('Code must be 6 digits')
+  code: schemas.code()
 })
 
 interface ConfirmFormValues {
@@ -39,7 +37,7 @@ interface ConfirmFormValues {
 }
 
 const confirmValidationSchema = yup.object().shape({
-  password: password('Password must be contains 8 characters or more'),
+  password: schemas.password(),
   repeatPassword: yup.string().test({
     name: 'repeatPassword',
     message: 'Password must be equal',
@@ -89,25 +87,15 @@ function PasswordRecoveryPage(): JSX.Element {
   const confirmFormik = useFormik<ConfirmFormValues>({
     initialValues: {password: '', repeatPassword: ''},
     validationSchema: confirmValidationSchema,
-    onSubmit: noOp // ignored
-  });
-  const navigate = useNavigate();
-
-  const submitConfirmForm = async (login: boolean) => {
-    await confirmFormik.submitForm();
-    if (confirmFormik.isValid) {
+    onSubmit: ({password}) => {
       passwordRecoveryStore.confirm(
-        { password: confirmFormik.values.password, email: emailFormik.values.email, code: codeFormik.values.code },
-        () => {
-          if (login) {
-            accountStore.login({ password: confirmFormik.values.password, email: emailFormik.values.email })
-          } else {
-            navigate(urls.login);
-          }
-        }
+        {password, email: emailFormik.values.email, code: codeFormik.values.code},
+        () => accountStore.login({password, email: emailFormik.values.email})
       );
     }
-  }
+  });
+
+  const submitConfirmForm = async () => await confirmFormik.submitForm();
 
   return (
     <main className={styles['password-recovery-page']}>
@@ -115,12 +103,28 @@ function PasswordRecoveryPage(): JSX.Element {
       <section className={styles['section']}>
         <Card classname={cs(styles['inner'], 'section-appearance')}>
           {state.step === Step.NONE &&
+              <Text variant="light">
+                  Please enter your email
+              </Text>}
+          {state.step === Step.CODE_SENT &&
+          <>
+              <Text variant="light">
+                  An email with a confirmation code was sent to {emailFormik.values.email}
+              </Text>
+              <Text variant="light">
+                  Please enter this code below and click "Confirm"
+              </Text>
+          </>}
+          {state.step === Step.CODE_CHECKED &&
+              <Text variant="light">
+                  Enter new password
+              </Text>}
+          {state.step === Step.NONE &&
               <form
                   className={styles['form']}
                   onSubmit={emailFormik.handleSubmit}
                   noValidate
               >
-                  <p className={styles['text']}>Please enter your email</p>
                   <Input
                       name="email"
                       type="email"
@@ -128,6 +132,7 @@ function PasswordRecoveryPage(): JSX.Element {
                       onChange={emailFormik.handleChange}
                       touched={emailFormik.touched.email}
                       error={emailFormik.errors.email}
+                      readOnly={passwordRecoveryStore.loading.sendCode}
                   />
                   <Button
                       variant="success"
@@ -143,14 +148,13 @@ function PasswordRecoveryPage(): JSX.Element {
                   onSubmit={codeFormik.handleSubmit}
                   noValidate
               >
-                  <p className={styles['text']}>An email with a confirmation code was sent to {emailFormik.values.email}.</p>
-                  <p className={styles['text']}>Please enter this code below and click "Confirm"</p>
                   <Input
                       name="code"
                       value={codeFormik.values.code}
                       onChange={codeFormik.handleChange}
                       touched={codeFormik.touched.code}
                       error={codeFormik.errors.code}
+                      readOnly={passwordRecoveryStore.loading.checkCode}
                   />
                   <Button
                       variant="success"
@@ -166,7 +170,6 @@ function PasswordRecoveryPage(): JSX.Element {
                   onSubmit={confirmFormik.handleSubmit}
                   noValidate
               >
-                  <p className={styles['text']}>Enter new password</p>
                   <PasswordInput
                       name="password"
                       label="Password"
@@ -174,6 +177,7 @@ function PasswordRecoveryPage(): JSX.Element {
                       onChange={confirmFormik.handleChange}
                       touched={confirmFormik.touched.password}
                       error={confirmFormik.errors.password}
+                      readOnly={passwordRecoveryStore.loading.confirm}
                   />
                   <PasswordInput
                       name="repeatPassword"
@@ -182,22 +186,15 @@ function PasswordRecoveryPage(): JSX.Element {
                       onChange={confirmFormik.handleChange}
                       touched={confirmFormik.touched.repeatPassword}
                       error={confirmFormik.errors.repeatPassword}
+                      readOnly={passwordRecoveryStore.loading.confirm}
                   />
                   <Button
                       variant="success"
                       type="button"
-                      onClick={() => submitConfirmForm(false)}
+                      onClick={submitConfirmForm}
                       loading={passwordRecoveryStore.loading.confirm}
                   >
                       Change Password
-                  </Button>
-                  <Button
-                      variant="warning"
-                      type="button"
-                      onClick={() => submitConfirmForm(true)}
-                      loading={passwordRecoveryStore.loading.confirm}
-                  >
-                      Change password and login
                   </Button>
               </form>}
         </Card>

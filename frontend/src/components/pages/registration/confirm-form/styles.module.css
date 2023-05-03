@@ -9,25 +9,14 @@
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
-    gap: 16px;
     width: 500px;
-}
-
-.inner .form {
     display: flex;
     flex-direction: column;
     gap: 16px;
 }
 
-.form .text {
-    color: var(--gray);
-}
-
-.form .code-field-container {
-    width: 200px;
-    align-self: center;
-}
-
-.form .code-field-container input {
-    text-align: center;
+.inner .form {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
 }

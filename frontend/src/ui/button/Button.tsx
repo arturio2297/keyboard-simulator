@@ -2,7 +2,6 @@ import {ReactNode} from "react";
 import {Action} from "../../contracts/common.contracts";
 import {cs, csc} from "../../utils/styles.utils";
 import styles from "./styles.module.css";
-import Spinner from "../spinner/Spinner";
 
 export interface ButtonProps {
   onClick?: Action;
@@ -11,6 +10,7 @@ export interface ButtonProps {
   variant?: 'light' | 'dark' | 'success' | 'danger' | 'warning' | 'text';
   type?: 'button' | 'submit';
   loading?: boolean;
+  loader?: ReactNode;
   disabled?: boolean;
 }
 
@@ -27,14 +27,7 @@ function Button(props: ButtonProps): JSX.Element {
       type={props.type}
       disabled={props.disabled || props.loading}
     >
-      <div className={styles['inner']}>
-        {props.children}
-      </div>
-      {props.loading &&
-          <Spinner
-              classname={styles['spinner']}
-              size="s"
-          />}
+      {props.loading ? (props.loader || 'Loading...') : props.children}
     </button>
   );
 }

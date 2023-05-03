@@ -3,17 +3,17 @@ import styles from "./styles.module.css";
 import {Action} from "../../../../../contracts/common.contracts";
 import Modal from "../../../../../ui/modal/Modal";
 import * as yup from "yup";
-import {code, requiredSting} from "../../../../../validation/schemas";
 import {useFormik} from "formik";
 import {useState} from "react";
 import useStores from "../../../../../hooks/useStores";
 import {Account} from "../../../../../stores/domain/Account";
 import Input from "../../../../../ui/input/Input";
 import Button from "../../../../../ui/button/Button";
-import {noOp} from "../../../../../utils/object.utils";
+import schemas from "../../../../../validation/schemas";
 
 interface EmailFormValues {
-  email: Email;
+  oldEmail: Email;
+  newEmail: Email;
 }
 
 interface CodeFormValues {
@@ -21,11 +21,17 @@ interface CodeFormValues {
 }
 
 const emailValidationSchema = yup.object().shape({
-  email: requiredSting('Email is required')
+  oldEmail: yup.string(),
+  newEmail: schemas.email()
+    .test({
+      name: 'newEmail',
+      message: 'New email must be different from the old one',
+      test: (value, {parent}) => value !== parent.oldEmail
+    })
 })
 
 const codeValidationSchema = yup.object().shape({
-  code: code('Code must be 6 digits')
+  code: schemas.code()
 })
 
 interface Props {
@@ -47,32 +53,29 @@ function ChangeEmailDialog(props: Props): JSX.Element {
   const account = accountStore.account as Account;
   const loading = account.loading.sendChangeEmailCode || account.loading.confirmChangeEmail;
   const emailFormik = useFormik<EmailFormValues>({
-    initialValues: {email: ''},
+    initialValues: {newEmail: '', oldEmail: account.email},
     validationSchema: emailValidationSchema,
-    onSubmit: noOp // ignored
+    onSubmit: ({newEmail: email}) => {
+      account.sendChangeEmailCode(
+        {email},
+        () => setState({...state, codeSent: true})
+      );
+    }
   });
   const codeFormik = useFormik<CodeFormValues>({
     initialValues: {code: ''},
     validationSchema: codeValidationSchema,
-    onSubmit: noOp // ignored
-  });
-
-  const submitEmailForm = async () => {
-    await emailFormik.submitForm();
-    if (emailFormik.isValid) {
-      account.sendChangeEmailCode(
-        {email: emailFormik.values.email},
-        () => setState({...state, codeSent: true})
+    onSubmit: ({code}) => {
+      account.confirmChangeEmail(
+        {email: emailFormik.values.newEmail, code},
+        () => accountStore.logout()
       );
     }
-  }
+  });
 
-  const submitCodeForm = async () => {
-    account.confirmChangeEmail(
-      {email: emailFormik.values.email, code: codeFormik.values.code},
-      () => accountStore.logout()
-    );
-  }
+  const submitEmailForm = async () => await emailFormik.submitForm();
+
+  const submitCodeForm = async () => await codeFormik.submitForm();
 
   return (
     <Modal
@@ -84,7 +87,7 @@ function ChangeEmailDialog(props: Props): JSX.Element {
         <>
           {state.codeSent
             ? <>
-              <p>An email with a confirmation code was sent to {emailFormik.values.email}.</p>
+              <p>An email with a confirmation code was sent to {emailFormik.values.newEmail}.</p>
               <p>Please enter this code below and click "Confirm"</p>
             </>
             : <p>After changing the email, you will need to re-login to the account using the new email</p>
@@ -101,6 +104,7 @@ function ChangeEmailDialog(props: Props): JSX.Element {
                 onChange={codeFormik.handleChange}
                 touched={codeFormik.touched.code}
                 error={codeFormik.errors.code}
+                readOnly={loading}
               />
             </form>
             : <form
@@ -112,12 +116,12 @@ function ChangeEmailDialog(props: Props): JSX.Element {
                 classnames={{
                   label: styles['label']
                 }}
-                name="email"
-                label="New Email"
-                value={emailFormik.values.email}
+                name="newEmail"
+                value={emailFormik.values.newEmail}
                 onChange={emailFormik.handleChange}
-                touched={emailFormik.touched.email}
-                error={emailFormik.errors.email}
+                touched={emailFormik.touched.newEmail}
+                error={emailFormik.errors.newEmail}
+                readOnly={loading}
               />
             </form>}
         </>

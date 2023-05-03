@@ -1,7 +1,6 @@
 import axios, {AxiosRequestHeaders} from "axios";
 import {Action, OnChange} from "../contracts/common.contracts";
-import {ApiError} from "../contracts/api/error.contracts";
-import {containFields} from "../utils/object.utils";
+import {UnhandledServerError} from "../contracts/api/error.contracts";
 import authStorage from "../storage/AuthStorage";
 import api from "./index";
 import {isSuccessResponse} from "../utils/axios.utils";
@@ -9,7 +8,7 @@ import {isSuccessResponse} from "../utils/axios.utils";
 const apiClient = axios.create();
 
 interface Configuration {
-  onError: OnChange<ApiError>;
+  onError: OnChange<UnhandledServerError>;
   onLogout: Action;
 }
 
@@ -22,7 +21,6 @@ export const configure = (configuration: Configuration) => {
 
       const authData = authStorage.get();
 
-      console.debug('auth data', authData);
       if (authData) {
         additionalHeaders.Authorization = `Bearer ${authData.accessToken}`;
       }
@@ -67,9 +65,8 @@ export const configure = (configuration: Configuration) => {
         }
       }
       const data = error.response && error.response.data;
-      if (isApiError(data)) {
-        configuration.onError(data);
-      }
+      data && configuration.onError(data);
+
       return Promise.reject(error);
     }
   );
@@ -77,10 +74,6 @@ export const configure = (configuration: Configuration) => {
 
 const isForbiddenResponse = (error: any): boolean => {
   return error.response && error.response.status === 403;
-}
-
-const isApiError = (data: any): data is ApiError => {
-  return (data && containFields(data, 'code', 'message'));
 }
 
 export default apiClient;
