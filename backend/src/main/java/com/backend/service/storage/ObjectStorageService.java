@@ -1,18 +1,21 @@
 package com.backend.service.storage;
 
+import com.backend.configuration.storage.ObjectFoldedStructure;
+import com.backend.configuration.storage.ObjectStorageConfiguration;
+import com.backend.core.exception.ApplicationException;
+import com.backend.core.message.error.ErrorCode;
 import com.backend.core.message.file.FileResponse;
+import com.backend.core.util.FileUtil;
 import io.minio.*;
-import io.minio.errors.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.io.ByteArrayResource;
+import org.springframework.core.io.Resource;
 import org.springframework.http.MediaType;
+import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.security.InvalidKeyException;
-import java.security.NoSuchAlgorithmException;
 import java.util.UUID;
 
 @Service
@@ -21,66 +24,94 @@ import java.util.UUID;
 public class ObjectStorageService {
 
     private final MinioClient client;
-    private static final long PART_SIZE = 1024 * 1024 * 5; // Megabytes
+    private static final long PART_SIZE = -1L;
+    private final ObjectStorageConfiguration configuration;
 
-    public String add(String bucket, InputStream is, long size, String contentType) {
+    public String add(MultipartFile file, ObjectFoldedStructure foldedStructure) throws ApplicationException {
         try {
-            createBucketIfNotExists(bucket);
-            final String object = getObjectName();
-            client.putObject(
-                    PutObjectArgs.builder()
-                            .bucket(bucket)
-                            .stream(is, size, PART_SIZE)
-                            .contentType(contentType)
+            final String object = getObjectName(foldedStructure, file.getOriginalFilename());
+            client.putObject(PutObjectArgs.builder()
+                            .bucket(configuration.getBucket())
+                            .region(configuration.getRegion())
+                            .stream(file.getInputStream(), file.getSize(), PART_SIZE)
+                            .contentType(file.getContentType())
                             .object(object)
-                            .build()
-            );
+                            .build());
             return object;
-        } catch (MinioException | IOException | NoSuchAlgorithmException | InvalidKeyException e) {
-            throw new RuntimeException("Cannot add object", e);
+        } catch (Exception e) {
+            log.error("Cannot add file", e);
+            throw new ApplicationException(ErrorCode.CommonUnknown);
         }
     }
 
-    public String replace(String bucket, InputStream is, long size, String contentType, String object) {
+    public String replace(MultipartFile file, ObjectFoldedStructure foldedStructure,
+                          @Nullable String removableObjectName) throws ApplicationException {
+        if (removableObjectName != null) {
+            try {
+                final FileResponse response = get(removableObjectName);
+                if (response.getResource().exists()) {
+                    delete(removableObjectName);
+                }
+            } catch (ApplicationException e) {
+                // ignored
+            }
+        }
+        return add(file, foldedStructure);
+    }
+
+    public void delete(String objectName) throws ApplicationException {
         try {
-            final FileResponse response = get(bucket, object);
-            if (response.getResource().exists()) {
-                delete(bucket, object);
+            client.removeObject(RemoveObjectArgs.builder()
+                    .bucket(configuration.getBucket())
+                    .region(configuration.getRegion())
+                    .object(objectName).build());
+        } catch (Exception e) {
+            log.error("Cannot delete file", e);
+            throw new ApplicationException(ErrorCode.CommonUnknown);
+        }
+    }
+
+    public FileResponse get(String objectName) throws ApplicationException {
+        try {
+            final var response = client.getObject(
+                    GetObjectArgs.builder()
+                            .bucket(configuration.getBucket())
+                            .region(configuration.getRegion())
+                            .object(objectName)
+                            .build());
+            final Resource resource = new ByteArrayResource(response.readAllBytes());
+            final String contentType = response.headers().get("Content-Type");
+            return new FileResponse(resource, MediaType.valueOf(contentType));
+        } catch (Exception e) {
+            log.error("Cannot get file", e);
+            throw new ApplicationException(ErrorCode.CommonUnknown);
+        }
+    }
+
+    public void addBucket() {
+        try {
+            final boolean exists = client.bucketExists(BucketExistsArgs.builder()
+                    .bucket(configuration.getBucket())
+                    .region(configuration.getRegion())
+                    .build());
+            if (!exists) {
+                client.makeBucket(MakeBucketArgs.builder()
+                        .bucket(configuration.getBucket())
+                        .region(configuration.getRegion())
+                        .build());
+                log.debug("Bucket already created");
+            } else {
+                log.debug("Bucket already created. Skip");
             }
         } catch (Exception e) {
-            // ignored
-        }
-        return add(bucket, is, size, contentType);
-    }
-
-    public void delete(String bucket, String object) {
-        try {
-            client.removeObject(RemoveObjectArgs.builder().bucket(bucket).object(object).build());
-        } catch (MinioException | IOException | NoSuchAlgorithmException | InvalidKeyException e) {
-            throw new RuntimeException("Cannot remove object", e);
+            log.error("Cannot create bucket", e);
         }
     }
 
-    public FileResponse get(String bucket, String object) {
-        try {
-            final var response = client.getObject(GetObjectArgs.builder().bucket(bucket).object(object).build());
-            final String contentType = response.headers().get("Content-Type");
-            return new FileResponse(
-                    new ByteArrayResource(response.readAllBytes()),
-                    MediaType.valueOf(contentType));
-        } catch (MinioException | IOException | NoSuchAlgorithmException | InvalidKeyException e) {
-            throw new RuntimeException("Cannot get object", e);
-        }
-    }
-
-    private void createBucketIfNotExists(String bucket) throws MinioException, IOException, NoSuchAlgorithmException, InvalidKeyException {
-        final boolean exists = client.bucketExists(BucketExistsArgs.builder().bucket(bucket).build());
-        if (!exists) {
-            client.makeBucket(MakeBucketArgs.builder().bucket(bucket).build());
-        }
-    }
-
-    private String getObjectName() {
-        return UUID.randomUUID().toString().replaceAll("-", "");
+    private String getObjectName(ObjectFoldedStructure foldedStructure, String filename) {
+        final String objectId = UUID.randomUUID().toString().replaceAll("-", "");
+        final String ext = FileUtil.getExtension(filename);
+        final String objectName = objectId + "." + ext;
+        return foldedStructure.getObjectAbsolutePath(objectName);
     }
 }

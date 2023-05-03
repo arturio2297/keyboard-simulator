@@ -1,4 +1,6 @@
 .profile-page {
+    --header-height: 60px;
+
     height: 100%;
     width: 100%;
     display: flex;
@@ -21,15 +23,14 @@
     transform: translateY(-50%);
     width: 100%;
     height: 100%;
-    display: flex;
-    flex-direction: column;
     padding: 0;
 }
 
 .inner .header {
     display: flex;
     align-items: center;
-    padding: 16px;
+    height: var(--header-height);
+    padding: 0 16px;
 }
 
 .inner hr {
@@ -40,5 +41,5 @@
 .inner .content {
     display: flex;
     align-items: center;
-    height: 100%;
+    height: calc(100% - var(--header-height));
 }

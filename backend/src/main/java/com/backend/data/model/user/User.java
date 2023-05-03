@@ -34,7 +34,7 @@ public class User extends EntityBase {
     @Column(name = "active")
     private boolean active;
 
-    @Column(name = "avatar_object_name", length = 32)
+    @Column(name = "avatar_object_name")
     private String avatarObjectName;
 
     @OneToOne(cascade = CascadeType.ALL)

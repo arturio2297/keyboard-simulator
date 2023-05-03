@@ -1,6 +1,7 @@
 package com.backend.service.account;
 
 import com.backend.configuration.application.ApplicationConfiguration;
+import com.backend.configuration.storage.ObjectFoldedStructure;
 import com.backend.configuration.storage.ObjectStorageConfiguration;
 import com.backend.core.exception.ApplicationException;
 import com.backend.core.message.account.ConfirmChangeEmailRequest;
@@ -16,7 +17,6 @@ import com.backend.data.respository.CodeRepository;
 import com.backend.data.respository.UserRepository;
 import com.backend.service.email.EmailService;
 import com.backend.service.image.ImageService;
-import com.backend.service.image.ImageService.ResizeImageResult;
 import com.backend.service.storage.ObjectStorageService;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
@@ -33,7 +33,6 @@ public class AccountService {
 
     private final ImageService imageService;
     private final ObjectStorageService objectStorageService;
-    private final ObjectStorageConfiguration objectStorageConfiguration;
     private final ApplicationConfiguration applicationConfiguration;
     private final PasswordEncoder passwordEncoder;
     private final EmailService emailService;
@@ -44,20 +43,15 @@ public class AccountService {
         return (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
     }
 
-    public void updateAvatar(MultipartFile avatar) {
+    public void updateAvatar(MultipartFile avatar) throws ApplicationException {
         final User user = get();
 
-        final String bucket = objectStorageConfiguration.getBucket().getAvatar();
-        final String avatarObjectName;
-
-        final ResizeImageResult result = imageService.resizeAvatar(avatar);
-        if (user.getAvatarObjectName() != null) {
-            avatarObjectName = objectStorageService.replace(bucket, result.getIs(), result.getSize(),
-                    avatar.getContentType(), user.getAvatarObjectName());
-        } else {
-            avatarObjectName = objectStorageService.add(bucket, result.getIs(), result.getSize(),
-                    avatar.getContentType());
-        }
+        final MultipartFile resizedAvatar = imageService.resizeAvatar(avatar);
+        final String avatarObjectName = objectStorageService.replace(resizedAvatar,
+                new ObjectFoldedStructure()
+                        .folder("avatars")
+                        .folder(String.valueOf(user.getId())),
+                user.getAvatarObjectName());
 
         user.setAvatarObjectName(avatarObjectName);
 

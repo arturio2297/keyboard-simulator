@@ -30,7 +30,7 @@ public class AccountController {
     }
 
     @PostMapping(value = "/avatar", consumes = "multipart/form-data")
-    public void updateAvatar(@RequestPart MultipartFile avatar) {
+    public void updateAvatar(@RequestPart MultipartFile avatar) throws ApplicationException {
         accountService.updateAvatar(avatar);
     }
 
