@@ -1,0 +1,19 @@
+.text {
+
+}
+
+.text.light {
+    color: var(--gray);
+}
+
+.text.success {
+    color: var(--green);
+}
+
+.text.warning {
+    color: var(--orange);
+}
+
+.text.danger {
+    color: var(--red);
+}

@@ -7,12 +7,9 @@
     position: relative;
     display: flex;
     justify-content: center;
-}
-
-.button .inner {
-    display: flex;
     align-items: center;
     gap: 4px;
+    transition: background .25s ease-in-out;
 }
 
 .button.light {
@@ -20,9 +17,17 @@
     color: black;
 }
 
+.button.light:disabled {
+    background: var(--gray-dark);
+}
+
 .button.dark {
     background: var(--black);
     color: var(--gray);
+}
+
+.button.dark:disabled {
+    background: var(--black-dark);
 }
 
 .button.success {
@@ -30,14 +35,26 @@
     color: var(--gray);
 }
 
+.button.success:disabled {
+    background: var(--green-dark);
+}
+
 .button.danger {
     background: var(--red);
     color: var(--gray);
 }
 
+.button.danger:disabled {
+    background: var(--red-dark);
+}
+
 .button.warning {
     background: var(--orange);
     color: var(--gray);
+}
+
+.button.warning:disabled {
+    background: var(--orange-dark);
 }
 
 .button.text {
@@ -51,20 +68,8 @@
 
 .button:disabled {
     cursor: initial;
-    background: var(--blue);
 }
 
 .button:disabled:active {
     transform: none;
-}
-
-.button.loading .inner {
-    visibility: hidden;
-}
-
-.button.loading .spinner {
-    position: absolute;
-    left: 50%;
-    top: 55%;
-    transform: translateX(-50%) translateY(-50%);
 }

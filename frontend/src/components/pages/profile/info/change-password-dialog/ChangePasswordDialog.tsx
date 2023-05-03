@@ -4,12 +4,11 @@ import {Action} from "../../../../../contracts/common.contracts";
 import Modal from "../../../../../ui/modal/Modal";
 import Button from "../../../../../ui/button/Button";
 import * as yup from "yup";
-import {password} from "../../../../../validation/schemas";
 import {useFormik} from "formik";
-import {noOp} from "../../../../../utils/object.utils";
 import useStores from "../../../../../hooks/useStores";
 import {Account} from "../../../../../stores/domain/Account";
 import PasswordInput from "../../../../../ui/password-input/PasswordInput";
+import schemas from "../../../../../validation/schemas";
 
 interface FormValues {
   oldPassword: Password;
@@ -24,8 +23,8 @@ const initialValues: FormValues = {
 }
 
 const validationSchema = yup.object().shape({
-  oldPassword: password('Password must be contains 8 characters or more'),
-  newPassword: password('Password must be contains 8 characters or more'),
+  oldPassword: schemas.password(),
+  newPassword: schemas.password(),
   repeatNewPassword: yup.string().test({
     name: 'repeatNewPassword',
     message: 'Passwords must be equal',
@@ -45,25 +44,18 @@ function ChangePasswordDialog(props: Props): JSX.Element {
   const formik = useFormik<FormValues>({
     initialValues,
     validationSchema,
-    onSubmit: noOp // ignored
-  });
-
-  const submitForm = async () => {
-    await formik.submitForm();
-    if (formik.isValid) {
+    onSubmit: ({newPassword: password}) => {
       account.checkPassword(
         formik.values.oldPassword,
-        () => {
-          // old password correct
-          account.updatePassword({password: formik.values.newPassword}, props.onCancel)
-        },
-        () => {
-          // old password incorrect
-          formik.setFieldError('oldPassword', 'Incorrect old password. Check the correctness of the entered password')
-        }
+        // old password correct
+        () => account.updatePassword({password}, props.onCancel),
+        // old password incorrect
+        () => formik.setFieldError('oldPassword', 'Incorrect old password. Check the correctness of the entered password')
       );
     }
-  }
+  });
+
+  const submitForm = async () => await formik.submitForm();
 
   return (
     <Modal
@@ -87,6 +79,7 @@ function ChangePasswordDialog(props: Props): JSX.Element {
             onChange={formik.handleChange}
             touched={formik.touched.oldPassword}
             error={formik.errors.oldPassword}
+            readOnly={loading}
           />
           <PasswordInput
             classnames={{
@@ -98,6 +91,7 @@ function ChangePasswordDialog(props: Props): JSX.Element {
             onChange={formik.handleChange}
             touched={formik.touched.newPassword}
             error={formik.errors.newPassword}
+            readOnly={loading}
           />
           <PasswordInput
             classnames={{
@@ -109,6 +103,7 @@ function ChangePasswordDialog(props: Props): JSX.Element {
             onChange={formik.handleChange}
             touched={formik.touched.repeatNewPassword}
             error={formik.errors.repeatNewPassword}
+            readOnly={loading}
           />
         </form>
       }

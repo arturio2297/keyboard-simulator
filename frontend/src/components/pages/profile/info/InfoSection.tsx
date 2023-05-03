@@ -5,7 +5,6 @@ import useStores from "../../../../hooks/useStores";
 import {Account} from "../../../../stores/domain/Account";
 import FileInput from "../../../../ui/file-input/FileInput";
 import * as yup from "yup";
-import {requiredSting} from "../../../../validation/schemas";
 import {useFormik} from "formik";
 import Input from "../../../../ui/input/Input";
 import {prettyDate} from "../../../../utils/date.utils";
@@ -15,6 +14,7 @@ import IconButton from "../../../../ui/icon-button/IconButton";
 import useDialog from "../../../../hooks/useDialog";
 import ChangeEmailDialog from "./change-email-dialog/ChangeEmailDialog";
 import ChangePasswordDialog from "./change-password-dialog/ChangePasswordDialog";
+import schemas from "../../../../validation/schemas";
 
 interface FormValues {
   email: Email;
@@ -25,8 +25,8 @@ interface FormValues {
 }
 
 const validationSchema = yup.object().shape({
-  firstname: requiredSting('Firstname is required'),
-  lastname: requiredSting('Lastname is required')
+  firstname: schemas.requiredSting(),
+  lastname: schemas.requiredSting()
 })
 
 function InfoSection(): JSX.Element {
@@ -68,7 +68,7 @@ function InfoSection(): JSX.Element {
           classname={styles['avatar']}
           loading={account.loading.updateAvatar}
           userId={account.id}
-          size="xxl"
+          size="xl"
         />
         <FileInput
           onChange={onAvatarChange}

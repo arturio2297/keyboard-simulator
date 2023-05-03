@@ -4,10 +4,8 @@ import Card from "../../../ui/card/Card";
 import {cs, csc} from "../../../utils/styles.utils";
 import useClose from "../../../hooks/useClose";
 import * as yup from "yup";
-import {password, requiredSting} from "../../../validation/schemas";
 import {useFormik} from "formik";
 import useStores from "../../../hooks/useStores";
-import Loader from "../../../ui/loader/Loader";
 import Input from "../../../ui/input/Input";
 import Button from "../../../ui/button/Button";
 import PasswordInput from "../../../ui/password-input/PasswordInput";
@@ -15,6 +13,7 @@ import {useNavigate} from "react-router-dom";
 import urls from "../../../urls";
 import Header from "../../common/header/Header";
 import Footer from "../../common/footer/Footer";
+import schemas from "../../../validation/schemas";
 
 interface FormValues {
   email: Email;
@@ -27,8 +26,8 @@ const initialValues: FormValues = {
 }
 
 const validationSchema = yup.object().shape({
-  email: requiredSting('Email is required'),
-  password: password('Password must be contains 8 characters or more')
+  email: schemas.email(),
+  password: schemas.password()
 })
 
 function LoginPage(): JSX.Element {
@@ -85,8 +84,9 @@ function LoginPage(): JSX.Element {
             <Button
               type="submit"
               variant="success"
+              loading={loading.login}
             >
-              Confirm
+              Login
             </Button>
             <Button
               type="button"
@@ -106,7 +106,6 @@ function LoginPage(): JSX.Element {
         </Card>
       </section>
       <Footer classname="fixed-footer"/>
-      {(loading.login || loading.fetchAccount) && <Loader/>}
     </main>
   );
 }

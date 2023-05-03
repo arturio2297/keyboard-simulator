@@ -1,14 +1,10 @@
 .button {
-    position: absolute;
-    right: 0;
+    position: absolute !important;
+    right: 8px;
     top: 50%;
     transform: translateY(-50%);
 }
 
-.button * {
-    color: var(--black);
-}
-
 .button:active {
-    transform: translateY(calc(-50% + 1px));
+    transform: translateY(calc(-50% + 1px)) !important;
 }

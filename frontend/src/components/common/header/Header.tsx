@@ -2,13 +2,13 @@ import {observer} from "mobx-react-lite";
 import styles from "./styles.module.css";
 import useStores from "../../../hooks/useStores";
 import Button from "../../../ui/button/Button";
-import {NavLink} from "react-router-dom";
 import urls from "../../../urls";
 import ConfirmDialog from "../dialogs/ConfirmDialog";
 import useDialog from "../../../hooks/useDialog";
 import {cs} from "../../../utils/styles.utils";
 import IconButton from "../../../ui/icon-button/IconButton";
 import {User} from "react-feather";
+import Link from "../../../ui/link/Link";
 
 interface HeaderProps {
   showActions?: boolean;
@@ -26,20 +26,24 @@ function Header(props: HeaderProps): JSX.Element {
   return (
     <header className={cs(styles['header'], props.classname)}>
       <section className={styles['logo-section']}>
-        <NavLink to={urls.main}>
+        <Link
+          href={urls.main}
+          variant="dark"
+          underline="none"
+        >
           <h1>Keyboard Simulator</h1>
-        </NavLink>
+        </Link>
       </section>
       {props.showActions
         ? <>
         {account ?
           <section className={styles['account-section']}>
-            <NavLink to={urls.profile}>
-              <IconButton>
+            <Link href={urls.profile} underline="none">
+              <IconButton variant="dark">
                 {account.email}
                 <User/>
               </IconButton>
-            </NavLink>
+            </Link>
             <Button
               variant="warning"
               onClick={logoutDialog.open}
@@ -49,12 +53,18 @@ function Header(props: HeaderProps): JSX.Element {
           </section>
           :
           <section className={styles['actions-section']}>
-            <NavLink to={urls.registration}>
+            <Link
+              href={urls.registration}
+              underline="none"
+            >
               <Button variant="dark">Sign Up</Button>
-            </NavLink>
-            <NavLink to={urls.login}>
+            </Link>
+            <Link
+              href={urls.login}
+              underline="none"
+            >
               <Button variant="success">Sing In</Button>
-            </NavLink>
+            </Link>
           </section>}
       </>
       : <div/>}

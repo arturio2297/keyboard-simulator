@@ -19,7 +19,7 @@ function PasswordInput(props: PasswordInputProps): JSX.Element {
       <IconButton
         classname={styles['button']}
         type="button"
-        variant="text"
+        variant="dark"
         onClick={() => setShowPassword(!showPassword)}
       >
         {showPassword ? <EyeOff/> : <Eye/>}

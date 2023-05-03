@@ -19,8 +19,14 @@
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
-    gap: 16px;
     width: 500px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.inner .back-button {
+    align-self: flex-start;
 }
 
 .inner .form {
