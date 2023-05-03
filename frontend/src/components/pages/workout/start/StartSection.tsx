@@ -22,11 +22,11 @@ function StartSection(): JSX.Element {
 
   const [state, setState] = useState<State>(initialState);
   const [closed, close] = useClose();
-  const {simulationStore} = useStores();
+  const {workoutStore} = useStores();
 
   const onStartClick = () => {
     close(() => {
-      simulationStore.ready(state.paragraphsCount, state.showHints);
+      workoutStore.ready(state.paragraphsCount, state.showHints);
     });
   }
 

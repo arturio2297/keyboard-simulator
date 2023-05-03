@@ -11,20 +11,20 @@ import Header from "../../common/header/Header";
 
 function WorkoutPage(): JSX.Element {
 
-  const {simulationStore} = useStores();
-  const {loading} = simulationStore;
+  const {workoutStore} = useStores();
+  const {loading} = workoutStore;
 
   return (
     <main className={styles['workout-page']}>
-      {simulationStore.isStatus(SimulationStatus.NONE) &&
+      {workoutStore.isStatus(SimulationStatus.NONE) &&
           <>
               <Header classname="fixed-header"/>
               <StartSection/>
               <Footer classname="fixed-footer"/>
           </>}
-      {simulationStore.isStatus(SimulationStatus.READY, SimulationStatus.START, SimulationStatus.PAUSE, SimulationStatus.END) &&
+      {workoutStore.isStatus(SimulationStatus.READY, SimulationStatus.START, SimulationStatus.PAUSE, SimulationStatus.END) &&
           <SimulationSection/>}
-      {simulationStore.isStatus(SimulationStatus.RESULT) &&
+      {workoutStore.isStatus(SimulationStatus.RESULT) &&
           <ResultSection/>}
       {loading.fetchText &&
           <Loader>

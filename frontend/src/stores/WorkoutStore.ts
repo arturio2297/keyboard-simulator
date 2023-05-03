@@ -2,7 +2,8 @@ import {makeAutoObservable, runInAction} from "mobx";
 import {
   Letter,
   Paragraph,
-  PressResult, SessionResult,
+  PressResult,
+  SessionResult,
   SessionStats,
   SimulationProgress,
   SimulationStatus,
@@ -12,17 +13,16 @@ import {letterKeyUps} from "../contracts/keyboard.contracts";
 import {calcPercent, formatNumber} from "../utils/number.utils";
 import {equalsIgnoreCase, isCaseSensitive, isUppercase} from "../utils/string.utils";
 import {formatTime, TimeFormat} from "../utils/date.utils";
-import {SessionStorage} from "../storage/SessionStorage";
 import {getTotal} from "../utils/statistic.utils";
 import api from "../api";
 import {LoadingState} from "../contracts/common.contracts";
+import {RootStore} from "./RootStore";
+import {AddWorkoutSessionResultRequest} from "../contracts/api/workout.constracts";
+import {noOp} from "../utils/object.utils";
 
-type LoadingKeys = 'fetchText';
+type LoadingKeys = 'fetchText' | 'addSessionResult';
 
-export class SimulatorStore {
-
-  private _sessionsStorage = new SessionStorage();
-
+export class WorkoutStore {
   private _loading: LoadingState<LoadingKeys> = {};
   private _status = SimulationStatus.NONE;
   private _pressedCode = '';
@@ -34,12 +34,10 @@ export class SimulatorStore {
   private _timerId?: NodeJS.Timeout;
   private _time = 0;
   private _showHints = true;
-  private _sessionResults: SessionResult[];
+  private _sessionResults: SessionResult[] = [];
 
-  constructor() {
+  constructor(private _rootStore: RootStore) {
     makeAutoObservable(this);
-
-    this._sessionResults = this._sessionsStorage.getResults();
   }
 
   public ready(paragraphs = 5, showHints = true, test = false) {
@@ -68,7 +66,8 @@ export class SimulatorStore {
           this._status = SimulationStatus.READY;
         });
       })
-      .catch(() => {})
+      .catch(() => {
+      })
       .finally(() => {
         runInAction(() => this._loading.fetchText = false);
       });
@@ -101,12 +100,15 @@ export class SimulatorStore {
 
   public press(key: string, code: string) {
     this._simulatePress(code);
-    if (this.isStatus(SimulationStatus.READY)) {
-      this.start();
-    } else if (this.isStatus(SimulationStatus.START)) {
-      this._processPress(key, code);
-    } else if (this.isStatus(SimulationStatus.PAUSE)) {
-      this.continue();
+    switch (this._status) {
+      case SimulationStatus.READY:
+        this.start();
+        break;
+      case SimulationStatus.START:
+        this._processPress(key, code);
+        break;
+      case SimulationStatus.PAUSE:
+        this.continue();
     }
   }
 
@@ -122,11 +124,6 @@ export class SimulatorStore {
       this._startTimer();
       this._status = SimulationStatus.START;
     }
-  }
-
-  public clearStatistic() {
-    this._sessionsStorage.remove();
-    this._sessionResults = [];
   }
 
   private _processPress(key: string, code: string) {
@@ -155,16 +152,21 @@ export class SimulatorStore {
     setTimeout(() => {
       runInAction(() => this._status = SimulationStatus.RESULT);
     }, 750);
-    this._sessionsStorage.saveResult({
-      speed: this.progress.speed,
-      time: this._time,
-      date: new Date().getTime(),
-      accuracy: this.progress.accuracy,
-      totalLetters: this.letters.length,
-      totalWords: this.words.length,
-      totalParagraphs: this.paragraphs.length
-    });
-    this._sessionResults = this._sessionsStorage.getResults();
+    if (this._rootStore.isLoggedIn) {
+      this._loading.addSessionResult = true;
+      api.workout.add({
+        speed: this.progress.speed,
+        time: this._time,
+        accuracy: this.progress.accuracy,
+        letters: this.letters.length,
+        words: this.words.length,
+        paragraphs: this.paragraphs.length
+      })
+        .then(noOp)
+        .finally(() => {
+          runInAction(() => this._loading.addSessionResult = false);
+        });
+    }
   }
 
   private _simulatePress(code: string) {
@@ -183,18 +185,18 @@ export class SimulatorStore {
     return this._status;
   }
 
-  public get paragraphs():Paragraph[] {
+  public get paragraphs(): Paragraph[] {
     return this._text.map((line, paragraphI, paragraphsArr) => {
 
       const paragraphKey = paragraphI + '';
       const isLastLine = (paragraphsArr.length - 1) === paragraphI;
 
-      const words:Word[] = line.split(' ').map((word, wordI, wordsArr) => {
+      const words: Word[] = line.split(' ').map((word, wordI, wordsArr) => {
 
         const wordKey = paragraphKey + '_' + wordI;
         const isLastWord = (wordsArr.length - 1) === wordI;
 
-        const letters:Letter[] = word.split('').map((letter, letterI) => {
+        const letters: Letter[] = word.split('').map((letter, letterI) => {
 
           const letterKey = wordKey + '_' + letterI;
 
@@ -237,13 +239,13 @@ export class SimulatorStore {
     });
   }
 
-  public get words():Word[] {
+  public get words(): Word[] {
     return this.paragraphs.reduce((words, line) => {
       return [...words, ...line.words];
     }, [] as Word[]);
   }
 
-  public get letters():Letter[] {
+  public get letters(): Letter[] {
     return this.words.reduce((letters, word) => {
       return [...letters, ...word.letters];
     }, [] as Letter[]);
@@ -278,8 +280,10 @@ export class SimulatorStore {
     const letterSymbol = letter.content;
     const keyUps = Object.values(letterKeyUps);
     for (let i = 0; i < keyUps.length; i++) {
-      const { code, symbol, additionalSymbol } = keyUps[i];
-      if (isCaseSensitive(letterSymbol) && isUppercase(letterSymbol) && equalsIgnoreCase(letterSymbol, symbol)) {
+      const {code, symbol, additionalSymbol} = keyUps[i];
+      if (isCaseSensitive(letterSymbol)
+        && isUppercase(letterSymbol)
+        && equalsIgnoreCase(letterSymbol, symbol)) {
         return ['ShiftLeft', code];
       } else if (equalsIgnoreCase(letterSymbol, symbol)) {
         return [code];

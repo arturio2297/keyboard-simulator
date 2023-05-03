@@ -6,7 +6,7 @@ const rootStore = new RootStore();
 
 const contextValue: ApplicationContextValue = {
   rootStore,
-  simulationStore: rootStore.simulatorStore,
+  workoutStore: rootStore.workoutStore,
   registrationStore: rootStore.registrationStore,
   accountStore: rootStore.accountStore,
   uiStore: rootStore.uiStore,

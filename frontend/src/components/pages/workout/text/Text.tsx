@@ -11,8 +11,8 @@ interface Props {
 
 function Text(props: Props): JSX.Element {
 
-  const {simulationStore} = useStores();
-  const {paragraphs, letter, paragraph, result} = simulationStore;
+  const {workoutStore} = useStores();
+  const {paragraphs, letter, paragraph, result} = workoutStore;
 
   useEffect(() => {
     if (!paragraph) return;

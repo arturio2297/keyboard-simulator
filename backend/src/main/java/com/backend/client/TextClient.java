@@ -27,7 +27,6 @@ public class TextClient {
                 .queryParam("type", "all-meat")
                 .encode()
                 .toUriString();
-        System.out.println(url);
         final ResponseEntity<String[]> response = restTemplate.exchange(
                 url,
                 HttpMethod.GET,
