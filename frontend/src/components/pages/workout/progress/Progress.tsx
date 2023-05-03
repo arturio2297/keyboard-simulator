@@ -28,8 +28,8 @@ interface Props {
 
 function Progress(props: Props): JSX.Element {
 
-  const {simulationStore} = useStores();
-  const {progress, sessionsStats} = simulationStore;
+  const {workoutStore} = useStores();
+  const {progress, sessionsStats} = workoutStore;
 
   const isShow = (field: SimulationProgressField): boolean => {
     const fields = props.showFields || [];

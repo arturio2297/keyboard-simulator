@@ -1,5 +1,5 @@
 import {makeAutoObservable} from "mobx";
-import {SimulatorStore} from "./SimulatorStore";
+import {WorkoutStore} from "./WorkoutStore";
 import {RegistrationStore} from "./RegistrationStore";
 import {AccountStore} from "./AccountStore";
 import {UiStore} from "./UiStore";
@@ -9,7 +9,7 @@ import {PasswordRecoveryStore} from "./PasswordRecoveryStore";
 
 export class RootStore {
 
-  simulatorStore = new SimulatorStore();
+  workoutStore = new WorkoutStore(this);
   registrationStore = new RegistrationStore();
   accountStore = new AccountStore();
   uiStore = new UiStore();
@@ -27,4 +27,9 @@ export class RootStore {
       this.accountStore.fetchAccount();
     }
   }
+
+  public get isLoggedIn() {
+    return !!this.accountStore.account;
+  }
+
 }

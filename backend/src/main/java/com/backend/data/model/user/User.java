@@ -1,11 +1,14 @@
 package com.backend.data.model.user;
 
 import com.backend.data.model.EntityBase;
+import com.backend.data.model.workout.WorkoutSessionResult;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
 import java.time.OffsetDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Getter@Setter
 @Entity
@@ -39,4 +42,11 @@ public class User extends EntityBase {
 
     @OneToOne(cascade = CascadeType.ALL)
     private UserToken token;
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    private List<WorkoutSessionResult> workoutSessionResults = new ArrayList<>();
+
+    public String getFullname() {
+        return String.join(" ", firstname, lastname);
+    }
 }

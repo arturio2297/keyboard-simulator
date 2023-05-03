@@ -8,7 +8,7 @@ function MainPage(): JSX.Element {
 
   return (
     <main className={styles['main-page']}>
-      <Header showActions/>
+      <Header/>
       <ContentSection/>
       <Footer/>
     </main>

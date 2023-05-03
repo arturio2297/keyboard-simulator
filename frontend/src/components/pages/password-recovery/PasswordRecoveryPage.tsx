@@ -99,7 +99,7 @@ function PasswordRecoveryPage(): JSX.Element {
 
   return (
     <main className={styles['password-recovery-page']}>
-      <Header classname="fixed-header" showActions/>
+      <Header classname="fixed-header"/>
       <section className={styles['section']}>
         <Card classname={cs(styles['inner'], 'section-appearance')}>
           {state.step === Step.NONE &&

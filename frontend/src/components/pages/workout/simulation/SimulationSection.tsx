@@ -14,8 +14,8 @@ import useClose from "../../../../hooks/useClose";
 function SimulationSection():JSX.Element {
 
   const [closed, close] = useClose();
-  const {simulationStore} = useStores();
-  const {status} = simulationStore;
+  const {workoutStore} = useStores();
+  const {status} = workoutStore;
 
   useEffect(() => {
 
@@ -27,7 +27,7 @@ function SimulationSection():JSX.Element {
           key = 'nl';
           break;
       }
-      simulationStore.press(key, e.code);
+      workoutStore.press(key, e.code);
     }
 
     document.addEventListener('keyup', keyUpListener);
@@ -35,22 +35,22 @@ function SimulationSection():JSX.Element {
     return () => {
       document.removeEventListener('keyup', keyUpListener);
     }
-  }, [simulationStore]);
+  }, [workoutStore]);
 
   useEffect(() => {
-    simulationStore.isStatus(SimulationStatus.END) && close();
-  }, [status, simulationStore, close]);
+    workoutStore.isStatus(SimulationStatus.END) && close();
+  }, [status, workoutStore, close]);
 
   const onStartClick = () => {
-    simulationStore.start();
+    workoutStore.start();
   }
 
   const onContinueClick = () => {
-    simulationStore.continue();
+    workoutStore.continue();
   }
 
   const onRestartClick = () => {
-    close(() => simulationStore.reset());
+    close(() => workoutStore.reset());
   }
 
   return (
@@ -67,7 +67,7 @@ function SimulationSection():JSX.Element {
           showCompleteIndication
         />
       </div>
-      {simulationStore.isStatus(SimulationStatus.READY) &&
+      {workoutStore.isStatus(SimulationStatus.READY) &&
       <Modal
           body={
             <>
@@ -95,7 +95,7 @@ function SimulationSection():JSX.Element {
           }
           show
       />}
-      {(simulationStore.isStatus(SimulationStatus.PAUSE) && !closed) &&
+      {(workoutStore.isStatus(SimulationStatus.PAUSE) && !closed) &&
       <Modal
           body={
             <>

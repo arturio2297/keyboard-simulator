@@ -14,8 +14,8 @@ const keyboardLines: KeyUpsLine[] = Array.from({length: 6}).map((_, i) => getLin
 
 function Keyboard(): JSX.Element {
 
-  const {simulationStore} = useStores();
-  const {pressedCode, keyUpCodes} = simulationStore;
+  const {workoutStore} = useStores();
+  const {pressedCode, keyUpCodes} = workoutStore;
 
   return (
     <section className={styles['keyboard']}>
@@ -27,7 +27,7 @@ function Keyboard(): JSX.Element {
           {line.map((keyup, keyupI) =>
             <div
               key={keyupI}
-              onClick={() => keyup.code === 'Escape' && simulationStore.pause()}
+              onClick={() => keyup.code === 'Escape' && workoutStore.pause()}
               className={cs(styles['keyup'], styles[keyup.type], csc({
                 [styles['active']]: keyup.code === pressedCode,
                 [styles['hint']]: keyUpCodes.includes(keyup.code)

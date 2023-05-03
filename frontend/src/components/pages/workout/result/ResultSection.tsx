@@ -10,10 +10,10 @@ import useClose from "../../../../hooks/useClose";
 function ResultSection():JSX.Element {
 
   const [closed, close] = useClose();
-  const {simulationStore} = useStores();
+  const {workoutStore} = useStores();
 
   const onStartAgainClick = () => {
-    close(() => simulationStore.reset());
+    close(() => workoutStore.reset());
   }
 
   return (
