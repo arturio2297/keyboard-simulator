@@ -17,7 +17,6 @@ import {getTotal} from "../utils/statistic.utils";
 import api from "../api";
 import {LoadingState} from "../contracts/common.contracts";
 import {RootStore} from "./RootStore";
-import {AddWorkoutSessionResultRequest} from "../contracts/api/workout.constracts";
 import {noOp} from "../utils/object.utils";
 
 type LoadingKeys = 'fetchText' | 'addSessionResult';
@@ -65,8 +64,6 @@ export class WorkoutStore {
           this._letterKey = this.letters[0].key;
           this._status = SimulationStatus.READY;
         });
-      })
-      .catch(() => {
       })
       .finally(() => {
         runInAction(() => this._loading.fetchText = false);

@@ -1,6 +1,9 @@
 .content-section {
     width: 100%;
-    min-height: calc(100% - var(--header-height) - var(--footer-height));
+    height: calc(100% - var(--header-height) - var(--footer-height));
     padding: 16px;
     box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }

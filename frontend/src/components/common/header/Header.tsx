@@ -11,7 +11,6 @@ import {User} from "react-feather";
 import Link from "../../../ui/link/Link";
 
 interface HeaderProps {
-  showActions?: boolean;
   classname?: string;
 }
 
@@ -34,40 +33,36 @@ function Header(props: HeaderProps): JSX.Element {
           <h1>Keyboard Simulator</h1>
         </Link>
       </section>
-      {props.showActions
-        ? <>
-        {account ?
-          <section className={styles['account-section']}>
-            <Link href={urls.profile} underline="none">
-              <IconButton variant="dark">
-                {account.email}
-                <User/>
-              </IconButton>
-            </Link>
-            <Button
-              variant="warning"
-              onClick={logoutDialog.open}
-            >
-              Logout
-            </Button>
-          </section>
-          :
-          <section className={styles['actions-section']}>
-            <Link
-              href={urls.registration}
-              underline="none"
-            >
-              <Button variant="dark">Sign Up</Button>
-            </Link>
-            <Link
-              href={urls.login}
-              underline="none"
-            >
-              <Button variant="success">Sing In</Button>
-            </Link>
-          </section>}
-      </>
-      : <div/>}
+      {account ?
+        <section className={styles['account-section']}>
+          <Link href={urls.profile} underline="none">
+            <IconButton variant="dark">
+              {account.email}
+              <User/>
+            </IconButton>
+          </Link>
+          <Button
+            variant="warning"
+            onClick={logoutDialog.open}
+          >
+            Logout
+          </Button>
+        </section>
+        :
+        <section className={styles['actions-section']}>
+          <Link
+            href={urls.registration}
+            underline="none"
+          >
+            <Button variant="dark">Sign Up</Button>
+          </Link>
+          <Link
+            href={urls.login}
+            underline="none"
+          >
+            <Button variant="success">Sing In</Button>
+          </Link>
+        </section>}
       {logoutDialog.show &&
           <ConfirmDialog
               title="Logout"

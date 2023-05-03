@@ -24,11 +24,15 @@
     color: var(--gray);
 }
 
-.inner .settings {
+.inner .form {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
     gap: 16px;
+    width: 100%;
+}
+
+.form button {
     width: 100%;
 }
 

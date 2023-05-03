@@ -9,3 +9,9 @@
     align-items: center;
     justify-content: space-between;
 }
+
+.footer .navigation {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}

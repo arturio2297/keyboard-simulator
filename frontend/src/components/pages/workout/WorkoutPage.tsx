@@ -30,6 +30,10 @@ function WorkoutPage(): JSX.Element {
           <Loader>
               Text generation...
           </Loader>}
+      {loading.addSessionResult &&
+          <Loader>
+              Save result...
+          </Loader>}
     </main>
   );
 }
