@@ -22,29 +22,17 @@ public class ImageService {
 
     private final ImageConfiguration imageConfiguration;
 
-    public ResizeImageResult resizeAvatar(MultipartFile avatar) {
+    public MultipartFile resizeAvatar(MultipartFile avatar) {
         return resize(avatar, imageConfiguration.getAvatarWidth());
     }
 
-    private ResizeImageResult resize(MultipartFile file, int width) {
+    private MultipartFile resize(MultipartFile file, int width) {
         try {
             final BufferedImage original = ImageIO.read(file.getInputStream());
             final BufferedImage resized = Scalr.resize(original, width);
-            final ByteArrayOutputStream os = new ByteArrayOutputStream();
-            final String extension = file.getContentType().split("/")[1];
-            ImageIO.write(resized, extension, os);
-            return new ResizeImageResult(
-                    new ByteArrayInputStream(os.toByteArray()),
-                    os.size());
+            return new ImageFile(resized, file.getOriginalFilename());
         } catch (IOException e) {
             throw new RuntimeException("Cannot resize image", e);
         }
-    }
-
-    @Getter@Setter
-    @AllArgsConstructor
-    public static class ResizeImageResult {
-        private InputStream is;
-        private long size;
     }
 }

@@ -57,8 +57,6 @@ public class UserService {
             throw new ApplicationException(ErrorCode.CommonNotFound);
         }
 
-        return objectStorageService.get(
-                objectStorageConfiguration.getBucket().getAvatar(),
-                user.getAvatarObjectName());
+        return objectStorageService.get(user.getAvatarObjectName());
     }
 }

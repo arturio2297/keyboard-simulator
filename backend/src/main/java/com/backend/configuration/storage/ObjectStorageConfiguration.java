@@ -9,17 +9,11 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 @ConfigurationProperties(prefix = "storage")
 public class ObjectStorageConfiguration {
-
     private String url;
     private int port;
     private boolean secure;
     private String accessKey;
     private String secretKey;
     private String region;
-    private Bucket bucket;
-
-    @Getter@Setter
-    public static class Bucket {
-        private String avatar;
-    }
+    private String bucket;
 }

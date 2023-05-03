@@ -1,16 +1,13 @@
 .info-section {
     flex: 1;
     height: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-around;
-    gap: 16px;
+    overflow: hidden auto;
     border-right: solid var(--gray) 1px;
-    padding: 8px 16px;
     box-sizing: border-box;
 }
 
 .info-section .avatar-segment {
+    margin: 16px;
     display: flex;
     flex-direction: column;
     gap: 16px;
@@ -21,6 +18,7 @@
 }
 
 .info-section .form {
+    margin: 16px;
     display: flex;
     flex-direction: column;
 }

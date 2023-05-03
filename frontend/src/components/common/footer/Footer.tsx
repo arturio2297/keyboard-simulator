@@ -33,6 +33,7 @@ function Footer(props: FooterProps): JSX.Element {
       >
         <IconButton variant="dark">
           <GitHub/>
+          GitHub
         </IconButton>
       </Link>
     </footer>
